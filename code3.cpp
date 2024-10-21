@@ -1,3 +1,4 @@
+/*
 #include<stdio.h>
 #define Max 50
 
@@ -48,5 +49,51 @@ bool KTGiam(int a[], int n){
 		
 		
 		
+	}
+	*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+#define MAX 100
+
+// Hàm nhập dãy số nguyên và ghi vào file
+void nhapDS(int a[], int &n){
+		printf("nhap so phan tu: ");
+		scanf("%d", &n);
+	FILE* file = fopen(	"DaySo.inp","w");
+	if(file==NULL){
+		printf("Err!");
+		return;
+		
+	}
+	printf("nhap %d so nguyen: \n", &n);
+	for(int i=0;i<n;i++){
+		printf("phan tu thu %d: ", i+1);
+		scanf("%d", &a[i]);
+		fprintf(file,"%d\n",a[i]); // ghi vao file
+		
+		
+	}
+	fclose(file); // dong file
+	
+}
+void TaoMT(int n){
+	int matrix[MAX][MAX];
+	srand(time(NULL));
+	FILE* f=fopen("MaTran.inp","w");
+	if(f==NULL){
+		printf("Err!");
+		return;
+		
+	}
+	else {
+		do{
+			printf("nhap kich thuoc ma tran n:");
+			scanf("%d",&n);
+			
+		}while(!(n>=2 && n<=30));
+		fprintf(f,"%d\n",n);
 	}
 	
