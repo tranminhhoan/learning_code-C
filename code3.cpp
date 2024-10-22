@@ -52,7 +52,7 @@ bool KTGiam(int a[], int n){
 	}
 	*/
 
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
 
@@ -97,3 +97,47 @@ void TaoMT(int n){
 		fprintf(f,"%d\n",n);
 	}
 	
+*/
+
+#include<stdio.h>
+//ham noi tuyen
+inline int Tich(int a,int b){
+	return a*b;
+}
+//ham doi so mac dinh
+int TinhTien(int kw, int m3, int giadien=4, int gianuoc=10){
+	return kw*giadien + m3*gianuoc;
+}
+//
+int Mu(int a,int n=2){
+	int s=1,i;
+	for(i=1;i<=n;i++)
+		s *=a;
+	return s;
+}
+//chong ham
+float TinhDT(float d, float r){
+	return d*r;
+}
+float TinhDT(float r){
+	return 3.14*r*r;
+}
+//
+int main(){
+	//su dung ham inline
+	int a,b;
+	printf("nhap 2 so nguyen:");
+	scanf("%d%d",&a,&b);
+	printf("Tich 2 so nguyen %d",Tich(a,b));
+	//su dung ham tinh tien
+	printf("Nhap so kw, m3:");
+	scanf("%d%d",&a,&b);
+	printf("Tien dien nuoc phai tra la %d",TinhTien(a,b));
+	//tuong tu cho Mu
+	//su dung chong ham
+	float d,r;
+	printf("Nhap chieu dai, rong:");
+	scanf("%f%f",&d,&r);
+	printf("Dien tich HCN %.2f",TinhDT(d,r));
+	//tuong tu cho dien tich hinh tron
+}
