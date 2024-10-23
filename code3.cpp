@@ -99,7 +99,7 @@ void TaoMT(int n){
 	
 */
 
-#include<stdio.h>
+/*#include<stdio.h>
 //ham noi tuyen
 inline int Tich(int a,int b){
 	return a*b;
@@ -140,4 +140,55 @@ int main(){
 	scanf("%f%f",&d,&r);
 	printf("Dien tich HCN %.2f",TinhDT(d,r));
 	//tuong tu cho dien tich hinh tron
+}*/
+#include<stdio.h>
+#define maxa 100
+void nhapMang1D (int a[], int &n){
+	do{
+		printf("nhap kich thuoc thuc te cua mang: ");
+		scanf("%d",&n);
+	}while(!(n>0 && n<maxa));
+	printf("moi nhap cac phan tu cua mang, canh nhau bag khoang trang: ");
+	for(int i=0;i<n;i++) scanf("%d",&a[i]);
+}
+
+void xuatmang1d(int a[], int n){
+	printf("xuat cac phan tu cua mang 1 chieu la: ");
+	for(int i=0;i<n;i++) printf("%d",a[i]);
+}
+void HoanVi (int &x, int &y){
+	int tam=x; x=y; y=tam;
+}
+void sapxeptang(int a[], int n){
+	int i,j;
+	for( i=0;i<n-1;i++){
+		for( j=i+1;j<n;j++){
+			if (a[i]>a[j])
+				HoanVi (a[i], a[j]);
+		}
+	}
+}
+int demcacsocogiatri_k(int a[], int n, int k){
+	int dem =0;
+	for(int i=0;i<n;i++)if(a[i]==k) dem++;
+	return dem;
+}
+int Tiemkiem_x(int a[], int n, int x){
+	for(int vt=0;vt<n;vt++)
+		if(a[vt]==x)
+			return vt;
+	return -1;
+}
+int main(){
+	int a[maxa],n, k,x;
+	nhapMang1D(a,n);
+	sapxeptang(a,n);
+	xuatmang1d(a,n);
+	printf("\nNhap k: "); scanf("%d",&k);
+	printf("So luong bien K la :%d",demcacsocogiatri_k(a,n,k));
+	printf("\n nhap x: "); scanf("%d",&x);
+	printf(" vi trii cua x la: %d",Tiemkiem_x(a,n,x));
+	
+	
+
 }
