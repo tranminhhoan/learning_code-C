@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #define MAX 50
 
 void nhapDS(int a[], int &n){
@@ -59,5 +59,37 @@ int main(){
     else
         printf("day so thu tu khong giam dan");
 
+
+}
+*/
+// bai 1.1
+#include<stdio.h>// thu vien co chuc nang int out put
+#include<math.h> // thu vien tinh toan 
+#include<stdbool.h>// thu vien tra ve gia tri true false
+//  ham kiem tra
+bool KiemTra(float a, float b, float c){
+    if (a>0 && b>0 && c>0 && a+b>c && a+c>b && b+c>a)
+    {
+        return true;
+    }
+    return false;
+}
+// ham tinh s
+float TinhS(float a, float b, float c){
+    float p=(a+b+c)/2;
+    return sqrt(p*(p-a)*(p-b)*(p-c));
+
+}
+// ham main
+int main(){
+    float a,b,c;
+    printf("nhap 3 so thuc:");
+    scanf("%f%f%f", &a,&b,&c);
+    if (KiemTra(a,b,c))
+    {
+        printf("Dien tich cua tam giac la: %2f ", TinhS(a,b,c));
+
+    }
+    else printf(" 3 so tren k phai la do dai cua 3 canh cua tam giac ");
 
 }
