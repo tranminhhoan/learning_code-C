@@ -54,4 +54,47 @@ int main(){
 	
 }
 */
-
+#include<stdio.h>
+#define Maxa 50
+void docDL( const char *Filename,  int a[], int *n){
+	FILE *f=fopen("DaySo.inp", "r");
+	if(!f){
+		printf("err!");
+		return;
+		
+	}	else{
+		*n=0;
+		while(fscanf(f,"%d", &a[*n])==1){
+			(*n)++;
+		}
+		
+	}fclose(f);
+}
+void xuat(int a[], int n ){
+	printf("So luong phan tu la : %d\n", n-1);
+	for (int i = 1; i < n; i++) {
+		printf("Phan tu %d: %d\n", i , a[i]); 
+	}
+}
+int dem(int a[], int n,int x){
+	int linhcanh=-999;
+	linhcanh=a[n];
+	int dem=0;
+	for(int i=1;i<n;i++){
+		if(a[i]==x){
+			dem++;
+		}if(a[i]==linhcanh){
+			break;
+		}
+		
+	}
+	return dem;
+}
+int main(){
+	int a[Maxa], n, x;
+	docDL("DaySo.inp", a, &n);
+	xuat(a,n);
+	printf("nhap vao x can tim: ");
+	scanf("%d", &x);
+	printf("so lan ma x xuat hien la: %d", dem(a,n,x));
+}
