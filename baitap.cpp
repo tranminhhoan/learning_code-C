@@ -98,7 +98,7 @@ int main(){
 	scanf("%d", &x);
 	printf("so lan ma x xuat hien la: %d", dem(a,n,x));
 }
-*/
+
 #include<stdio.h>
 double sum(int n) {
 	// Điều kiện dừng
@@ -140,4 +140,55 @@ int main() {
 	printf("TongHieu S= 1-2+3-4+...+((-1)^%d+1)*%d= %d\n ", n,n,result);
 	
 	return 0;
+}
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void ghiDS(){
+	FILE *f=fopen("Dayso.inp", "w");
+	if(!f){
+		printf("err!");
+		return;
+	}else{
+		int n,m;
+		printf("nhap so luong so nguyen: ");
+		scanf("%d", &n);
+		fprintf(f,"%d\n",n);
+		for(int i=0;i<n;i++){
+			printf("Phan tu thu %d: ",i+1);
+			scanf("%d",&m );
+			fprintf(f,"%d\t", m);
+		}
+	}fclose(f);
+}
+void TaoMT(){
+	srand(time(NULL));
+	FILE *f=fopen("MaTran.txt","w");
+	if(!f){
+		printf("err!");
+		return;
+	}else{
+		int n;
+		do{
+			printf("Nhap kich thu mang: ");
+			scanf("%d", &n);
+		}while(!(n>=2 && n<=30));
+		
+		fprintf(f,"%d*%d\n",n,n);
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				int m=rand()%1000;
+				fprintf(f,"%d\t", m);
+			}fprintf(f,"\n");
+		}
+	}fclose(f);
+	
+	printf("da ghi du lieu vao file.");
+}
+int main(){
+	ghiDS();
+	TaoMT();
+	return 0 ;
+	
 }
