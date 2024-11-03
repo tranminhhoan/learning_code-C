@@ -141,6 +141,57 @@ int main() {
 	
 	return 0;
 }
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void ghiDS(){
+	FILE *f=fopen("Dayso.inp", "w");
+	if(!f){
+		printf("err!");
+		return;
+	}else{
+		int n,m;
+		printf("nhap so luong so nguyen: ");
+		scanf("%d", &n);
+		fprintf(f,"%d\n",n);
+		for(int i=0;i<n;i++){
+			printf("Phan tu thu %d: ",i+1);
+			scanf("%d",&m );
+			fprintf(f,"%d\t", m);
+		}
+	}fclose(f);
+}
+void TaoMT(){
+	srand(time(NULL));
+	FILE *f=fopen("MaTran.txt","w");
+	if(!f){
+		printf("err!");
+		return;
+	}else{
+		int n;
+		do{
+			printf("Nhap kich thu mang: ");
+			scanf("%d", &n);
+		}while(!(n>=2 && n<=30));
+		
+		fprintf(f,"%d*%d\n",n,n);
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				int m=rand()%1000;
+				fprintf(f,"%d\t", m);
+			}fprintf(f,"\n");
+		}
+	}fclose(f);
+	
+	printf("da ghi du lieu vao file.");
+}
+int main(){
+	ghiDS();
+	TaoMT();
+	return 0 ;
+	
+}
 */
 #include<stdio.h>
 #include<stdlib.h>
