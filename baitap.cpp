@@ -192,7 +192,7 @@ int main(){
 	return 0 ;
 	
 }
-*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -242,4 +242,123 @@ int main(){
 	TaoMT();
 	return 0 ;
 	
+}
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_SIZE 30
+
+// Hàm tạo ma trận ngẫu nhiên và ghi vào tệp "MaTran.inp"
+void TaoMaTran(int A[MAX_SIZE][MAX_SIZE], int *n) {
+	srand(time(NULL));
+	do {
+		printf("Nhap kich thuoc ma tran  (2 den 30): ");
+		scanf("%d", n);
+	} while (*n < 2 || *n > MAX_SIZE);
+	
+	FILE *f = fopen("MaTran.inp", "w");
+	if (!f) {
+		printf("Err!\n");
+		return;
+	}
+	
+	fprintf(f, "%d\n", *n); // Ghi kích thước ma trận vào tệp
+	for (int i = 0; i < *n; i++) {
+		for (int j = 0; j < *n; j++) {
+			A[i][j] = rand() % 1001; // Sinh số ngẫu nhiên trong [0, 1000]
+			fprintf(f, "%d ", A[i][j]); // Ghi số vào tệp
+		}
+		fprintf(f, "\n"); // Xuống dòng sau mỗi hàng
+	}
+	fclose(f);
+}
+
+// Hàm đọc ma trận từ tệp "MaTran.inp"
+void DocMaTran(int A[MAX_SIZE][MAX_SIZE], int *n) {
+	FILE *f = fopen("MaTran.inp", "r");
+	if (!f) {
+		printf("Err!\n");
+		return;
+	}
+	
+	fscanf(f, "%d", n); // Đọc kích thước ma trận từ tệp
+	for (int i = 0; i < *n; i++) {
+		for (int j = 0; j < *n; j++) {
+			fscanf(f, "%d", &A[i][j]); // Đọc từng phần tử vào ma trận
+		}
+	}
+	fclose(f);
+}
+
+// Hàm xuất ma trận ra màn hình
+void XuatMaTran(int A[MAX_SIZE][MAX_SIZE], int n) {
+	printf("Ma Tran %dx%d:\n", n, n);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			printf("%d ", A[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+// Hàm tính trung bình cộng các số trên đường chéo chính
+float TinhTrungBinhDuongCheo(int A[MAX_SIZE][MAX_SIZE], int n) {
+	int tong = 0;
+	for (int i = 0; i < n; i++) {
+		tong += A[i][i]; // Cộng các phần tử trên đường chéo chính
+	}
+	return (float)tong / n; // Tính trung bình
+}
+
+// Hàm tìm số lớn nhất trong ma trận
+int TimMax(int A[MAX_SIZE][MAX_SIZE], int n) {
+	int max = A[0][0]; // Giả sử phần tử đầu tiên là lớn nhất
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (A[i][j] > max) {
+				max = A[i][j]; // Cập nhật giá trị max
+			}
+		}
+	}
+	return max;
+}
+
+// Hàm ghi kết quả vào tệp "KetQua.out"
+void GhiKetQua(float avg, int max) {
+	FILE *f = fopen("KetQua.out", "w");
+	if (!f) {
+		printf("Err!\n");
+		return;
+	}
+	
+	fprintf(f, "Trung binh cong duong cheo: %.2f\n", avg);
+	fprintf(f, "So lon nhat trong ma tran: %d\n", max);
+	
+	fclose(f);
+}
+
+int main() {
+	int A[MAX_SIZE][MAX_SIZE], n;
+	
+	// Tạo ma trận và ghi vào tệp
+	TaoMaTran(A, &n);
+	
+	// Đọc ma trận từ tệp
+	DocMaTran(A, &n);
+	
+	// Xuất ma trận ra màn hình
+	XuatMaTran(A, n);
+	
+	// Tính trung bình cộng trên đường chéo chính
+	float avg = TinhTrungBinhDuongCheo(A, n);
+	
+	// Tìm số lớn nhất trong ma trận
+	int max = TimMax(A, n);
+	
+	// Ghi kết quả vào tệp
+	GhiKetQua(avg, max);
+	
+	return 0;
 }
