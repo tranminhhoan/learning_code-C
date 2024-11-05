@@ -243,7 +243,7 @@ int main(){
 	return 0 ;
 	
 }
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -361,4 +361,31 @@ int main() {
 	GhiKetQua(avg, max);
 	
 	return 0;
+}
+*/
+#include<stdio.h>
+#define maxa 010
+void nhapmang1D(int a[], int &n){
+	do{
+		printf("nhap kich thuoc thuc te cua mang: ");
+		scanf("%d",&n);
+	}while(!(n>0 && n<maxa));
+	printf("moi nhap cac phan tu cua mang, canh nhau bag khoang trang: ");
+	for(int i=0;i<n;i++) scanf("%d",&a[i]);
+}
+void xuatmang1d(int a[], int n){
+	printf("xuat cac phan tu cua mang 1 chieu la: ");
+	for(int i=0;i<n;i++) printf("%d",a[i]);
+}
+int tong_le(int a[], int n){
+	int s=0;
+	for(int i=0;i<n;i++) if(a[i]%2!=0) s=s+a[i];
+	return s;
+}
+int main(){
+	int a[maxa], n;
+	nhapmang1D(a,n);
+	xuatmang1d(a,n);
+	printf("\n\tTong cac so le trong mang la: %d",tong_le(a,n));
+	
 }
