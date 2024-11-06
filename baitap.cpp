@@ -362,7 +362,7 @@ int main() {
 	
 	return 0;
 }
-*/
+
 #include<stdio.h>
 #define maxa 010
 void nhapmang1D(int a[], int &n){
@@ -388,4 +388,90 @@ int main(){
 	xuatmang1d(a,n);
 	printf("\n\tTong cac so le trong mang la: %d",tong_le(a,n));
 	
+}
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MaxHocPhan 50
+#define MaxTenHP 100
+
+// Định nghĩa cấu trúc Học Phần
+typedef struct {
+	char maHP[10];       // Mã học phần
+	char tenHP[MaxTenHP]; // Tên học phần
+	int soTinChi;       // Số tín chỉ
+} HocPhan;
+
+// Hàm ghi dữ liệu vào file
+void GhiHocPhan(const char *filename, HocPhan hocPhans[], int n) {
+	FILE *f = fopen("HocPhan.txt", "w");
+	if (!f) {
+		printf("Khong the mo file %s!\n", filename);
+		return;
+	}
+	
+	fprintf(f, "%d\n", n); // Ghi số lượng học phần
+	for (int i = 0; i < n; i++) {
+		fprintf(f, "%s %s %d\n", hocPhans[i].maHP, hocPhans[i].tenHP, hocPhans[i].soTinChi);
+	}
+	
+	fclose(f);
+}void DocHocPhan(const char *filename, HocPhan hocPhans[], int *n) {
+	FILE *f = fopen("HocPhan.txt", "r");
+	if (!f) {
+		printf("Khong the mo file %s!\n", filename);
+		return;
+	}
+	
+	fscanf(f, "%d", n); // Đọc số lượng học phần
+	for (int i = 0; i < *n; i++) {
+		fscanf(f, "%s %s %d", hocPhans[i].maHP, hocPhans[i].tenHP, &hocPhans[i].soTinChi);
+	}
+	
+	fclose(f);
+}
+
+// Hàm xuất danh sách học phần
+void XuatHocPhan(HocPhan hocPhans[], int n) {
+	printf("Danh sach hoc phan:\n");
+	printf("%-10s %-30s %-10s\n", "Ma HP", "Ten HP", "So Tin Chi");
+	for (int i = 0; i < n; i++) {
+		printf("%-10s %-30s %-10d\n", hocPhans[i].maHP, hocPhans[i].tenHP, hocPhans[i].soTinChi);
+	}
+}
+
+int main() {
+	HocPhan hocPhans[MaxHocPhan];
+	int n;
+	
+	// Nhập số lượng học phần
+	printf("Nhap so luong hoc phan (2 <= n < 50): ");
+	scanf("%d", &n);
+	while (n < 2 || n >= 50) {
+		printf("So luong hoc phan khong hop le! Nhap lai: ");
+		scanf("%d", &n);
+	}
+	
+	// Nhập thông tin cho từng học phần
+	for (int i = 0; i < n; i++) {
+		printf("Nhap thong tin cho hoc phan %d:\n", i + 1);
+		printf("Ma hoc phan: ");
+		scanf("%s", hocPhans[i].maHP);
+		printf("Ten hoc phan: ");
+		scanf(" %[^\n]", hocPhans[i].tenHP); // Đọc chuỗi có khoảng trắng
+		printf("So tin chi: ");
+		scanf("%d", &hocPhans[i].soTinChi);
+	}
+	
+	// Ghi dữ liệu vào file HocPhan.txt
+	GhiHocPhan("HocPhan.txt", hocPhans, n);
+	printf("Du lieu da duoc ghi vao file HocPhan.txt\n");
+	DocHocPhan("HocPhan.txt", hocPhans, &n);
+	
+	// Xuất danh sách học phần
+	XuatHocPhan(hocPhans, n);
+
+	return 0;
 }
