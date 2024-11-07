@@ -389,7 +389,7 @@ int main(){
 	printf("\n\tTong cac so le trong mang la: %d",tong_le(a,n));
 	
 }
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -473,5 +473,59 @@ int main() {
 	// Xuất danh sách học phần
 	XuatHocPhan(hocPhans, n);
 
+	return 0;
+}*/
+#include<stdio.h>
+double sum(int n) {
+	// Điều kiện dừng
+	if (n == 1) {
+		return 1.0; // Tổng của 1
+	} else {
+		// Tổng S(n) = 1/n + S(n-1)
+		return 1.0 / n + sum(n - 1);
+	}
+}
+long long Tich(int n){
+	if(n==1){
+		return 1;
+	}else{
+		return (2*n+1) * Tich(n-1);
+	}
+}
+int TongHieu(int n){
+	if(n==1){
+		return 1;
+	}else
+		return TongHieu(n-1) + ((n % 2==0)? -n: n);
+	
+}
+long long GiaiThua(int n){
+	if(n==0 || n==1){
+		return 1;
+	}else return GiaiThua(n-1)*n ;
+	
+}
+long long TongGiaiThua (int n){
+	if(n==1){
+		return GiaiThua(1);
+	}else return TongGiaiThua(n-1) + GiaiThua(n);
+}
+
+int main() {
+	int n;
+	printf("nhap n: ");
+	scanf("%d", &n);
+	
+	if (n <= 0) {
+		printf("Vui long nhap n > 0.\n");
+		return 1;
+	}
+	
+	long long result = TongGiaiThua(n);// Tong(n); Tich(n);
+//	printf("Tong S = 1 + 1/2 + ... + 1/%d = %.6f\n", n, result);
+//	printf("Tich S = 1 * 3 * 5 * ... *(2* %d + 1)= %lld\n",n,result);
+//	printf("TongHieu S= 1-2+3-4+...+((-1)^%d+1)*%d= %d\n ", n,n,result);
+	printf("Tong GiaiThua S= 1! + 2! + 3! + ... + %d!: %d", n, result);
+	
 	return 0;
 }
