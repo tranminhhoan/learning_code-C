@@ -474,7 +474,7 @@ int main() {
 	XuatHocPhan(hocPhans, n);
 
 	return 0;
-}*/
+}
 #include<stdio.h>
 double sum(int n) {
 	// Điều kiện dừng
@@ -528,4 +528,89 @@ int main() {
 	printf("Tong GiaiThua S= 1! + 2! + 3! + ... + %d!: %d", n, result);
 	
 	return 0;
+}*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<float.h>
+
+struct nut{
+	float giatri;
+	struct nut *tiep;
+};typedef struct nut Node;
+
+Node *chenDau(Node *dau, int x){
+	Node *moi;
+	moi = (Node*) malloc(sizeof(Node));
+	moi->giatri=x;
+	moi->tiep=dau;
+	dau=moi;
+	return dau;
+}
+Node *NhapDs(Node *dau){
+	int n;
+	float x;
+	printf("Nhap so luong so thuc ban muon thm vao danh sach: ");
+	scanf("%d", n);
+	for(int i=0;i<n;i++){
+		printf("nhap phan tu thu %d: ",i+1);
+		scanf("%f", &x);
+		chenDau(dau,x);
+		
+	}return 0;
+}
+float SoDNN(Node *dau){
+	float min=FLT_MAX;
+	Node *tam=dau;
+	while(tam!=NULL){
+		if(tam->giatri>0 && tam->giatri<min){
+			min=tam->giatri;
+		}
+		tam=tam->tiep;
+	}return min;
+	
+}
+float SoALN(Node *dau){
+	float max=FLT_MIN;
+	Node *tam=dau;
+	while(tam!=NULL){
+		if(tam->giatri<0 && tam->giatri>max){
+			max=tam->giatri;
+		}
+		tam=tam->tiep;
+	}
+	return ((max=FLT_MIN ) ? -1 : max);
+	
+}
+float TongDuong(Node *dau){
+	float tong=0;
+	Node *tam=dau;
+	while(tam!=NULL){
+		if(tam->giatri>0){
+			tong+=tam->giatri;
+		}
+		tam=tam->tiep;
+		
+	}return tong;
+	
+}
+float TongAm(Node *dau){
+	float tong=0;
+	Node *tam=dau;
+	while(tam!=NULL){
+		if(tam->giatri<0){
+			tong+=tam->giatri;
+		}
+		tam=tam->tiep;
+	}return tong;
+}
+int SoLDT(Node *dau){
+	Node *tam=dau;
+	while(tam!=NULL){
+		if(tam->giatri / 2 !=0){
+			return tam->giatri;
+		}
+		tam=tam->tiep;
+		
+	}return -1;
+	
 }
