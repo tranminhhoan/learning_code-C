@@ -528,7 +528,7 @@ int main() {
 	printf("Tong GiaiThua S= 1! + 2! + 3! + ... + %d!: %d", n, result);
 	
 	return 0;
-}*/
+}
 #include<stdio.h>
 #include<stdlib.h>
 #include<float.h>
@@ -613,4 +613,20 @@ int SoLDT(Node *dau){
 		
 	}return -1;
 	
+}*/
+#include <stdio.h>
+
+#define Cong(x, y, z) ((z) + (x) + (y))
+
+int main() {
+	float a, b, c;
+	printf("Nhap vao 3 so thuc: ");
+	scanf("%f %f %f", &a, &b, &c);
+
+	// Tinh tong bang macro Cong
+	double Tong = Cong(a, b, c);
+
+	printf("Tong 3 so thuc: %.2f\n", Tong);
+
+	return 0;
 }
