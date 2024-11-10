@@ -613,7 +613,7 @@ int SoLDT(Node *dau){
 		
 	}return -1;
 	
-}*/
+}// macro
 #include <stdio.h>
 
 #define Cong(x, y, z) ((z) + (x) + (y))
@@ -629,4 +629,60 @@ int main() {
 	printf("Tong 3 so thuc: %.2f\n", Tong);
 
 	return 0;
+}*/
+#include<stdio.h>
+#define max 50
+void DocFile(int a[], int *n , int *x){
+	FILE *f=fopen("DaySoNguyen.txt", "r");
+	if(!f){
+		perror ("err!");
+		return ;
+		
+	}else{
+		fscanf(f,"%d %d", n,x);
+		for(int i=0;i<*n;i++){
+			fscanf(f, "%d", &a[i]);
+			
+		}
+	}
+	fclose(f);
+	
+	
+}
+int DemUocSo(int a[], int n, int x){
+	int dem =0;
+	for(int i=0;i<n;i++){
+		if(a[i]>0 && x%a[i]==0){
+			dem++;
+			
+		}
+	}return dem;
+}
+void GhiKetQua(int demUocSo){
+	FILE *f=fopen("Ketqua.txt", "w");
+	if(!f){
+		perror("Err!");
+		return;
+		
+	}else{
+		fprintf(f,"So luong so nguyen la uoc so cua x: %d ", demUocSo);
+		
+	}
+}
+int main(){
+	int a[max],n ,x;
+	DocFile(a,&n,&x);
+	printf("%d %d\n", n ,x);
+	printf("Day so: ");
+	for (int i = 0; i < n; i++) {
+		printf("%d ", a[i]);
+		
+	}printf("\n");
+	int demUocSo=DemUocSo(a,n,x);
+	printf("so luong uoc so: %d	", demUocSo);
+	
+	GhiKetQua(demUocSo);
+	
+	return 0;
+	
 }
