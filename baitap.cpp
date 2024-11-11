@@ -629,7 +629,7 @@ int main() {
 	printf("Tong 3 so thuc: %.2f\n", Tong);
 
 	return 0;
-}*/
+}
 #include<stdio.h>
 #define max 50
 void DocFile(int a[], int *n , int *x){
@@ -685,4 +685,24 @@ int main(){
 	
 	return 0;
 	
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int n, char *a[]) {
+	if (n < 4 || n > 31) {
+		printf("So luong doi so.\n");
+		return 1;
+	}
+	double sum_positive = 0.0;
+	for (int i = 1; i < n; i++) {
+		double num = atof(a[i]);  
+		if (num > 0) {
+			sum_positive += num;
+		}
+	}
+	printf("Sum: %.2f\n", sum_positive);
+	
+	return 0;
 }
+
