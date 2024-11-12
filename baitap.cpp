@@ -685,7 +685,7 @@ int main(){
 	
 	return 0;
 	
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -704,5 +704,150 @@ int main(int n, char *a[]) {
 	printf("Sum: %.2f\n", sum_positive);
 	
 	return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// Định nghĩa một nút trong cây nhị phân
+typedef struct Node {
+    union {
+        int int_value;    // Dữ liệu kiểu số nguyên
+        float float_value; // Dữ liệu kiểu số thực
+        char char_value;  // Dữ liệu kiểu ký tự
+    };
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+// Hàm tạo một nút mới
+Node* create_node(int type, void* value) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    new_node->left = NULL;
+    new_node->right = NULL;
+
+    // Gán giá trị cho nút tùy theo kiểu dữ liệu
+    if (type == 1) { // Số nguyên
+        new_node->int_value = *(int*)value;
+    } else if (type == 2) { // Số thực
+        new_node->float_value = *(float*)value;
+    } else if (type == 3) { // Ký tự
+        new_node->char_value = *(char*)value;
+    }
+    
+    return new_node;
 }
+
+// Hàm chèn một giá trị vào cây nhị phân tìm kiếm
+Node* insert(Node* root, int type, void* value) {
+    if (root == NULL) {
+        return create_node(type, value);
+    }
+
+    // Chèn vào cây theo kiểu số nguyên, số thực hoặc ký tự
+    if (type == 1) { // Số nguyên
+        int val = *(int*)value;
+        if (val < root->int_value) {
+            root->left = insert(root->left, type, value);
+        } else {
+            root->right = insert(root->right, type, value);
+        }
+    } else if (type == 2) { // Số thực
+        float val = *(float*)value;
+        if (val < root->float_value) {
+            root->left = insert(root->left, type, value);
+        } else {
+            root->right = insert(root->right, type, value);
+        }
+    } else if (type == 3) { // Ký tự
+        char val = *(char*)value;
+        if (val < root->char_value) {
+            root->left = insert(root->left, type, value);
+        } else {
+            root->right = insert(root->right, type, value);
+        }
+    }
+
+    return root;
+}
+
+// Hàm duyệt cây theo thứ tự trung vị (Inorder Traversal)
+void inorder(Node* root, int type) {
+    if (root != NULL) {
+        inorder(root->left, type);
+        
+        // In ra giá trị của nút tùy theo kiểu dữ liệu
+        if (type == 1) {
+            printf("%d ", root->int_value);
+        } else if (type == 2) {
+            printf("%.2f ", root->float_value);
+        } else if (type == 3) {
+            printf("%c ", root->char_value);
+        }
+        
+        inorder(root->right, type);
+    }
+}
+
+// Hàm đếm số nút chỉ có 1 nhánh
+int count_one_branch_nodes(Node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    
+    int count = 0;
+    
+    // Kiểm tra nếu nút chỉ có một nhánh (hoặc con trái hoặc con phải)
+    if ((root->left && !root->right) || (!root->left && root->right)) {
+        count = 1;
+    }
+    
+    return count + count_one_branch_nodes(root->left) + count_one_branch_nodes(root->right);
+}
+
+int main() {
+    Node* root_int = NULL;
+    Node* root_float = NULL;
+    Node* root_char = NULL;
+
+    // Thêm các phần tử vào cây số nguyên
+    int int_values[] = {10, 5, 15, 3};
+    for (int i = 0; i < 4; i++) {
+        root_int = insert(root_int, 1, &int_values[i]);
+    }
+
+    // Thêm các phần tử vào cây số thực
+    float float_values[] = {3.14, 2.71, 1.41, 0.57};
+    for (int i = 0; i < 4; i++) {
+        root_float = insert(root_float, 2, &float_values[i]);
+    }
+
+    // Thêm các phần tử vào cây ký tự
+    char char_values[] = {'d', 'b', 'f', 'a'};
+    for (int i = 0; i < 4; i++) {
+        root_char = insert(root_char, 3, &char_values[i]);
+    }
+
+    // Duyệt cây số nguyên và in ra các giá trị
+    printf("Duyet cay so nguyen:\n");
+    inorder(root_int, 1);
+    printf("\n");
+
+    // Duyệt cây số thực và in ra các giá trị
+    printf("Duyet cay so thuc:\n");
+    inorder(root_float, 2);
+    printf("\n");
+
+    // Duyệt cây ký tự và in ra các giá trị
+    printf("Duyet cay ky tu:\n");
+    inorder(root_char, 3);
+    printf("\n");
+
+    // Đếm số nút chỉ có một nhánh trong các cây
+    printf("\nSo nut chi co 1 nhánh (Cay so nguyen): %d\n", count_one_branch_nodes(root_int));
+    printf("So nut chi co 1 nhánh (Cay so thuc): %d\n", count_one_branch_nodes(root_float));
+    printf("So nut chi co 1 nhánh (Cay ky tu): %d\n", count_one_branch_nodes(root_char));
+
+    return 0;
+}
+
 
