@@ -704,7 +704,7 @@ int main(int n, char *a[]) {
 	printf("Sum: %.2f\n", sum_positive);
 	
 	return 0;
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -848,6 +848,158 @@ int main() {
     printf("So nut chi co 1 nhánh (Cay ky tu): %d\n", count_one_branch_nodes(root_char));
 
     return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// Định nghĩa cấu trúc của một nút cây nhị phân
+typedef struct Node {
+    int data;
+    struct Node *left, *right;
+} Node;
+
+// Tạo một nút mới
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->left = newNode->right = NULL;
+    return newNode;
 }
+
+// Thêm nút vào cây nhị phân tìm kiếm
+Node* insertNode(Node* root, int data) {
+    if (root == NULL)
+        return createNode(data);
+    
+    if (data < root->data)
+        root->left = insertNode(root->left, data);
+    else if (data > root->data)
+        root->right = insertNode(root->right, data);
+    
+    return root;
+}
+
+// Duyệt cây theo thứ tự giữa (in-order)
+void inOrderTraversal(Node* root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
+}
+
+// Đếm số nút chỉ có 1 nhánh
+int countOneChildNodes(Node* root) {
+    if (root == NULL) return 0;
+    
+    int count = 0;
+    if ((root->left == NULL && root->right != NULL) || (root->left != NULL && root->right == NULL))
+        count = 1;
+    
+    return count + countOneChildNodes(root->left) + countOneChildNodes(root->right);
+}
+
+// Tính chiều cao của cây
+int calculateHeight(Node* root) {
+    if (root == NULL)
+        return 0;
+    
+    int leftHeight = calculateHeight(root->left);
+    int rightHeight = calculateHeight(root->right);
+    
+    return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
+}
+
+// Tìm nút có giá trị bất kỳ
+Node* searchNode(Node* root, int value) {
+    if (root == NULL || root->data == value)
+        return root;
+    
+    if (value < root->data)
+        return searchNode(root->left, value);
+    
+    return searchNode(root->right, value);
+}
+
+// Tìm mức của một nút trong cây
+int findLevel(Node* root, int value, int level) {
+    if (root == NULL)
+        return -1;
+    if (root->data == value)
+        return level;
+    
+    int leftLevel = findLevel(root->left, value, level + 1);
+    if (leftLevel != -1)
+        return leftLevel;
+    
+    return findLevel(root->right, value, level + 1);
+}
+
+// Đếm số nút lá của một nút
+int countLeafNodes(Node* root) {
+    if (root == NULL)
+        return 0;
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+    
+    return countLeafNodes(root->left) + countLeafNodes(root->right);
+}
+
+// Chương trình chính
+int main() {
+    Node* root = NULL;
+    int choice, value;
+
+    // Thêm các giá trị vào cây
+    int arr[] = {50, 30, 20, 40, 70, 60, 80};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    for (int i = 0; i < n; i++) {
+        root = insertNode(root, arr[i]);
+    }
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Duyệt cây và in ra giá trị các nút\n");
+        printf("2. Đếm số nút chỉ có 1 nhánh\n");
+        printf("3. Tính chiều cao của cây\n");
+        printf("4. Tìm một nút và tính mức cùng số nút lá\n");
+        printf("0. Thoát\n");
+        printf("Lựa chọn của bạn: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                printf("Duyệt cây theo thứ tự giữa (In-Order): ");
+                inOrderTraversal(root);
+                printf("\n");
+                break;
+            case 2:
+                printf("Số nút chỉ có 1 nhánh: %d\n", countOneChildNodes(root));
+                break;
+            case 3:
+                printf("Chiều cao của cây: %d\n", calculateHeight(root));
+                break;
+            case 4:
+                printf("Nhập giá trị cần tìm: ");
+                scanf("%d", &value);
+                Node* found = searchNode(root, value);
+                if (found) {
+                    printf("Nút %d tìm thấy ở mức: %d\n", value, findLevel(root, value, 1));
+                    printf("Số nút lá của nút %d: %d\n", value, countLeafNodes(found));
+                } else {
+                    printf("Không tìm thấy nút %d trong cây\n", value);
+                }
+                break;
+            case 0:
+                exit(0);
+            default:
+                printf("Lựa chọn không hợp lệ!\n");
+        }
+    }
+
+    return 0;
+}
+
 
 
