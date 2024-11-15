@@ -848,7 +848,7 @@ int main() {
     printf("So nut chi co 1 nhánh (Cay ky tu): %d\n", count_one_branch_nodes(root_char));
 
     return 0;
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -999,7 +999,37 @@ int main() {
     }
 
     return 0;
+}*/
+#include<stdio.h>
+
+long long luyThua(int a , int n){
+	if(n==0){
+		return 1;
+	}
+	long long nua = luyThua(a, n/2);
+	
+	if(n%2==0){
+		return nua * nua;
+		
+	}else{
+		return nua * nua * a;
+		
+	}
 }
+int main(){
+	int a,n;
+	printf("nhap vao co so n: ");
+	scanf("%d", &a);
+	printf("Nhap vao so mu x: ");
+	scanf("%d", &n);
+	printf("%d^%d=%lld\n", a,n,luyThua(a,n));
+	return 0;
+	
+	
+	
+}
+
+
 
 
 
