@@ -999,7 +999,7 @@ int main() {
     }
 
     return 0;
-}*/
+}
 #include<stdio.h>
 
 long long luyThua(int a , int n){
@@ -1024,10 +1024,55 @@ int main(){
 	scanf("%d", &n);
 	printf("%d^%d=%lld\n", a,n,luyThua(a,n));
 	return 0;
-	
-	
+}*/
+#include<stdio.h>
+#define Max 50
+void Docfile(int a[], int &n){
+	FILE *f=fopen("Lab3_1.inp" , "r");
+	if(!f){
+		printf("Err!");
+		return;
+	}else{
+		fscanf(f,"%d", &n);
+		for(int i=0;i<n;i++){
+			fscanf(f,"%d", &a[i]);
+		}
+		
+	}
+	fclose(f);
 	
 }
+int SoLonNhat(int a[], int n){
+	int max=a[0];
+	for(int i=0;i<n;i++){
+		if(a[i]>max){
+			max=a[i];
+		}
+	}
+	return max;
+}
+void Xuat(int a[], int n){
+	printf("so luong phan tu: %d\n ", n);
+	for(int i=0;i<n;i++){
+		printf("%5d", a[i]);
+	}printf("\n");
+}
+long long Tong(int a[], int n, int i ){
+	if(i==n){
+		return 0;
+	}
+	return a[i] + Tong(a,n, i+1);
+	
+}
+int main(){
+	int a[Max],n,i;
+	Docfile(a,n);
+	Xuat(a,n);
+	printf("so lon nhat: %d\n", SoLonNhat(a,n));
+	printf("Tong cac phan tu cua mang a: %lld",Tong(a,n,i));
+	
+}
+
 
 
 
