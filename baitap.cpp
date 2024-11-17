@@ -1024,7 +1024,7 @@ int main(){
 	scanf("%d", &n);
 	printf("%d^%d=%lld\n", a,n,luyThua(a,n));
 	return 0;
-}*/
+}
 #include<stdio.h>
 #define Max 50
 void Docfile(int a[], int &n){
@@ -1071,7 +1071,39 @@ int main(){
 	printf("so lon nhat: %d\n", SoLonNhat(a,n));
 	printf("Tong cac phan tu cua mang a: %lld",Tong(a,n,i));
 	
+}*/
+#include<stdio.h>
+
+long luyThua(int a ,  int n){
+	if (n==1){
+		return a;
+	}return a * luyThua(a , n-1);
 }
+long Fibonaci(int x){
+	if(x==0 || x==1){
+		return 1;
+		
+	}return Fibonaci(x-1) + Fibonaci(x-2);
+}
+int main(){
+	int x;
+/*	printf("nhap vao a: ");
+	scanf("%d", &a);
+	while(!(1<n && n<30)){
+		printf("Nhap vao n: ");
+		scanf("%d", &n);
+	}
+	printf("S(n)= %d", luyThua(a,n));
+	*/
+	do{
+		printf("nhap vao x: ");
+		scanf("%d", &x);
+	}while(!(3<x && x <20));
+	printf("So Fibonaci thu %d: %d ", x, Fibonaci(x));
+	return 0;
+	
+}
+
 
 
 
