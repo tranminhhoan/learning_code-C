@@ -1071,7 +1071,7 @@ int main(){
 	printf("so lon nhat: %d\n", SoLonNhat(a,n));
 	printf("Tong cac phan tu cua mang a: %lld",Tong(a,n,i));
 	
-}*/
+}
 #include<stdio.h>
 
 long luyThua(int a ,  int n){
@@ -1094,7 +1094,7 @@ int main(){
 		scanf("%d", &n);
 	}
 	printf("S(n)= %d", luyThua(a,n));
-	*/
+	
 	do{
 		printf("nhap vao x: ");
 		scanf("%d", &x);
@@ -1102,6 +1102,56 @@ int main(){
 	printf("So Fibonaci thu %d: %d ", x, Fibonaci(x));
 	return 0;
 	
+}*/
+#include <stdio.h>
+int n, s;
+int menhGia[30]; // Mệnh giá các tờ tiền
+int cachTra[30]; // Mảng lưu cách trả tiền
+int soCach = 0; // Biến đếm số cách trả tiền
+
+// Hàm đệ quy quay lui
+void quayLui(int viTri, int tong, int batDau) {
+	if (tong > s) return;
+	if (tong == s) { 
+		soCach++;
+		// Ghi kết quả vào file
+		FILE *output = fopen("ATM_out.out", "a");
+		fprintf(output, "Cach %d: ", soCach);
+		for (int i = 0; i < viTri; i++) {
+			fprintf(output, "%d ", cachTra[i]);
+		}
+		fprintf(output, "\n");
+		fclose(output);
+		return;
+	}
+	
+	for (int i = batDau; i < n; i++) {
+		cachTra[viTri] = menhGia[i]; // Lưu mệnh giá vào mảng cachTra
+		quayLui(viTri + 1, tong + menhGia[i], i); // Gọi lại với tổng mới
+	}
+}
+
+int main() {
+	FILE *input = fopen("ATM.inp", "r");
+	fscanf(input, "%d %d", &n, &s);
+	for (int i = 0; i < n; i++) {
+		fscanf(input, "%d", &menhGia[i]);
+	}
+	fclose(input);
+	
+	FILE *output = fopen("ATM_out.out", "w");
+	fprintf(output, "Cac cach tra tien:\n");
+	fclose(output);
+	
+	quayLui(0, 0, 0);
+	
+	if (soCach == 0) {
+		output = fopen("ATM_out.out", "w");
+		fprintf(output, "-1\n");
+		fclose(output);
+	}
+	
+	return 0;
 }
 
 
