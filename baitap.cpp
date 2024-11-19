@@ -1102,7 +1102,7 @@ int main(){
 	printf("So Fibonaci thu %d: %d ", x, Fibonaci(x));
 	return 0;
 	
-}*/
+}
 #include <stdio.h>
 int n, s;
 int menhGia[30]; // Mệnh giá các tờ tiền
@@ -1153,7 +1153,52 @@ int main() {
 	
 	return 0;
 }
+*/
+#include <stdio.h>
 
+int n;
+int phanTich[20]; // Mảng lưu các phần tử của phân tích
+int tong[20]; // Mảng lưu tổng các phần tử đến bước đang xét
+int soCach = 0; // Biến đếm số cách phân tích
+
+void thuThap(int i, int giaTriCuoi) {
+	for (int j = giaTriCuoi; j <= n; j++) { // Xét các giá trị từ giaTriCuoi đến n
+		phanTich[i] = j; 
+		tong[i] = (i == 0) ? j : tong[i - 1] + j; 
+		
+		if (tong[i] == n) {
+			soCach++;
+			FILE *fileXuat = fopen("Lab4_3.out", "a");
+			for (int k = 0; k <= i; k++) {
+				fprintf(fileXuat, "%d ", phanTich[k]);
+			}
+			fprintf(fileXuat, "\n");
+			fclose(fileXuat);
+		} else if (tong[i] < n) {
+			thuThap(i + 1, j);
+		}
+	}
+}
+
+int main() {
+	printf("Nhap n (0 < n < 20): ");
+	scanf("%d", &n);
+	
+	if (n <= 0 || n >= 20) {
+		printf("Gia tri n khong hop le!\n");
+		return 1;
+	}
+	FILE *fileXuat = fopen("Lab4_3.out", "w");
+	fclose(fileXuat); 
+	thuThap(0, 1);
+	if (soCach == 0) {
+		fileXuat = fopen("Lab4_3.out", "w");
+		fprintf(fileXuat, "-1\n");
+		fclose(fileXuat);
+	}
+	
+	return 0;
+}
 
 
 
