@@ -1153,7 +1153,6 @@ int main() {
 	
 	return 0;
 }
-*/
 #include <stdio.h>
 
 int n;
@@ -1197,6 +1196,22 @@ int main() {
 		fclose(fileXuat);
 	}
 	
+	return 0;
+}*/
+#include<stdio.h>
+
+long tong(int n){
+	if(n==1){
+		return 1;
+	}return n + tong( n-1) ;
+}
+int main(){
+	int n;
+	do{
+		printf("nhap n: " );
+		scanf("%d", &n);
+	}while(!(n>5 && n<100));
+	printf("tong n so nguyen duong dau tien: %d", tong(n));
 	return 0;
 }
 
