@@ -1197,7 +1197,7 @@ int main() {
 	}
 	
 	return 0;
-}*/
+}
 #include<stdio.h>
 
 long tong(int n){
@@ -1213,9 +1213,26 @@ int main(){
 	}while(!(n>5 && n<100));
 	printf("tong n so nguyen duong dau tien: %d", tong(n));
 	return 0;
+}*/
+
+
+#include<stdio.h>
+
+long long TongBinhPhuong(int n){
+	if(n==1){
+		return 1;
+		
+	}return n*n + TongBinhPhuong(n-1);
 }
-
-
+int main(){
+	int n;
+	while(!(n>5 && n< 30)){
+		printf(" nhap n: ");
+		scanf("%d", &n);
+	}
+	printf("tong binh phuong: %d", TongBinhPhuong(n));
+	return 0;
+}
 
 
 
