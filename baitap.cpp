@@ -1213,7 +1213,7 @@ int main(){
 	}while(!(n>5 && n<100));
 	printf("tong n so nguyen duong dau tien: %d", tong(n));
 	return 0;
-}*/
+}
 
 
 #include<stdio.h>
@@ -1231,6 +1231,35 @@ int main(){
 		scanf("%d", &n);
 	}
 	printf("tong binh phuong: %d", TongBinhPhuong(n));
+	return 0;
+}*/
+#include<stdio.h>
+#define maxa 100
+
+long long TongPhanTu(int a[], int n ){
+	if(n==1){
+		return a[0];
+	}return a[n-1] + TongPhanTu(a, n-1);
+}
+int PhanTuNhoNhat(int a[], int n){
+	if(n==1){
+		return a[0];
+	} int min= PhanTuNhoNhat(a, n-1);
+	return (a[n-1] < min) ? a[n-1] : min;
+	
+}
+int main(){
+	int a[maxa], n , i;
+	do{
+		printf("nhap so long phan tu: ");
+		scanf("%d", &n);
+	}while(!(n>5 && n<100));
+	for( i=0;i<n;i++){
+		printf("a[%d]: ", i);
+		scanf("%d", &a[i]);
+	}
+	printf("tong cac phan tu: %d\n",TongPhanTu(a,n));
+	printf("Phan tu nho nhat trong mang a: %d", PhanTuNhoNhat(a,n));
 	return 0;
 }
 
