@@ -1232,7 +1232,7 @@ int main(){
 	}
 	printf("tong binh phuong: %d", TongBinhPhuong(n));
 	return 0;
-}*/
+}
 #include<stdio.h>
 #define maxa 100
 
@@ -1261,7 +1261,46 @@ int main(){
 	printf("tong cac phan tu: %d\n",TongPhanTu(a,n));
 	printf("Phan tu nho nhat trong mang a: %d", PhanTuNhoNhat(a,n));
 	return 0;
+}*/
+#include<stdio.h>
+#define maxa 100
+#define maxb 100
+
+float a[maxa][maxb]; // Khai báo ma trận toàn cục
+
+// Hàm nhập ma trận
+void nhapmang2(int &m, int &n) {
+	do {
+		printf("Nhap so hang (2 <= m <= 5) va so cot (2 <= n <= 10): ");
+		scanf("%d%d", &m, &n);
+	} while (!(m >= 2 && m <= 5 && n >= 2 && n <= 10)); // Kiểm tra điều kiện
+	
+	printf("Nhap cac phan tu cua ma tran:\n");
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			scanf("%f", &a[i][j]); // Nhập từng phần tử
+		}
+	}
 }
+
+// Hàm xuất ma trận
+void xuat(int m, int n) {
+	printf("Cac phan tu cua ma tran:\n");
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			printf("%.2f ", a[i][j]); // In từng phần tử với 2 chữ số thập phân
+		}
+		printf("\n"); // Xuống dòng sau mỗi hàng
+	}
+}
+
+int main() {
+	int m, n;          // Khai báo số hàng và số cột
+	nhapmang2(m, n);   // Nhập ma trận
+	xuat(m, n);        // Xuất ma trận
+	return 0;
+}
+
 
 
 
