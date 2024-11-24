@@ -1261,7 +1261,7 @@ int main(){
 	printf("tong cac phan tu: %d\n",TongPhanTu(a,n));
 	printf("Phan tu nho nhat trong mang a: %d", PhanTuNhoNhat(a,n));
 	return 0;
-}*/
+}
 #include<stdio.h>
 #define maxa 100
 #define maxb 100
@@ -1299,7 +1299,59 @@ int main() {
 	nhapmang2(m, n);   // Nhập ma trận
 	xuat(m, n);        // Xuất ma trận
 	return 0;
+}*/
+#include <stdio.h>
+
+// Hàm rút tiền theo kỹ thuật tham lam
+void rutTienThamLam(int soTien) {
+	// Các mệnh giá tiền
+	int menhGia[] = {200000, 100000, 50000, 20000, 10000};
+	int soLoaiTien = sizeof(menhGia) / sizeof(menhGia[0]);
+	int soLuongTo[soLoaiTien]; // Mảng lưu số lượng tờ tiền của từng mệnh giá
+	
+	// Khởi tạo số lượng tờ tiền của từng mệnh giá là 0
+	for (int i = 0; i < soLoaiTien; i++) {
+		soLuongTo[i] = 0;
+	}
+	
+	// Áp dụng thuật toán tham lam
+	for (int i = 0; i < soLoaiTien; i++) {
+		if (soTien >= menhGia[i]) {             // Chọn mệnh giá lớn nhất có thể
+			soLuongTo[i] = soTien / menhGia[i]; // Số lượng tờ tiền cần lấy
+			soTien = soTien % menhGia[i];       // Cập nhật số tiền còn lại
+		}
+	}
+	
+	// Nếu không thể rút đủ số tiền
+	if (soTien != 0) {
+		printf("Không the rut du so tien yeu cau!\n");
+		return;
+	}
+	
+	// Hiển thị kết quả
+	printf("Phuong an tra tien :\n");
+	for (int i = 0; i < soLoaiTien; i++) {
+		if (soLuongTo[i] > 0) {
+			printf("%d x %d\n", soLuongTo[i], menhGia[i]);
+		}
+	}
 }
+
+int main() {
+	int soTien;
+	printf("Nhap so tien can rut: ");
+	scanf("%d", &soTien);
+	
+	// Kiểm tra điều kiện nhập
+	if (soTien % 10000 != 0) {
+		printf("So tien can rut !\n");
+	} else {
+		rutTienThamLam(soTien);
+	}
+	
+	return 0;
+}
+
 
 
 
