@@ -1299,7 +1299,7 @@ int main() {
 	nhapmang2(m, n);   // Nhập ma trận
 	xuat(m, n);        // Xuất ma trận
 	return 0;
-}*/
+}
 #include <stdio.h>
 
 // Hàm rút tiền theo kỹ thuật tham lam
@@ -1350,7 +1350,28 @@ int main() {
 	}
 	
 	return 0;
+}*/
+#include <stdio.h>
+
+// Hàm chia để trị tìm phần tử lớn nhất
+int timPhanTuLonNhat(int mang[], int trai, int phai) {
+    if (trai == phai) {
+        return mang[trai];  // Mảng chỉ có 1 phần tử
+    }
+    int giua = (trai + phai) / 2;
+    int maxTrai = timPhanTuLonNhat(mang, trai, giua);
+    int maxPhai = timPhanTuLonNhat(mang, giua + 1, phai);
+    return (maxTrai > maxPhai) ? maxTrai : maxPhai;
 }
+
+int main() {
+    int mang[] = {1, 5, 3, 9, 2, 9, 7};
+    int n = sizeof(mang) / sizeof(mang[0]);
+    int lonNhat = timPhanTuLonNhat(mang, 0, n - 1);
+    printf("Phần tử lớn nhất trong mảng là: %d\n", lonNhat);
+    return 0;
+}
+
 
 
 
