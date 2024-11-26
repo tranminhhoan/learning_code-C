@@ -1350,7 +1350,7 @@ int main() {
 	}
 	
 	return 0;
-}*/
+}
 #include <stdio.h>
 
 // Hàm chia để trị tìm phần tử lớn nhất
@@ -1370,6 +1370,59 @@ int main() {
     int lonNhat = timPhanTuLonNhat(mang, 0, n - 1);
     printf("Phần tử lớn nhất trong mảng là: %d\n", lonNhat);
     return 0;
+}*/
+#include<stdio.h>
+
+void SelectionSort(int a[], int n){
+	int min, t;
+	for(int i=0;i<n-1;i++){
+		min = i;
+		for(int j=i+1;j<n;j++){
+			if(a[j]<a[min]){
+				min = j;
+			}
+		}
+		if(min != i){
+			t = a[min];
+			a[min]=a[i];
+			a[i]=t;
+		}
+	}
+}
+/*
+int max, t;
+for(int i=0;i<n-1;i++){
+max = i;
+for(int j=i+1;j<n;j++){
+if(a[j]>a[max]){
+max = j;
+}
+}
+if(max != i){
+t = a[max];
+a[max]=a[i];
+a[i]=t;
+}
+}
+}
+*/
+int main(){
+	int a[]={54,56,76,6,4,5,9};
+	int n= sizeof(a)/sizeof(a[0]);
+	
+	printf("mang ban dau: ");
+	for(int i=0;i<n;i++){
+		printf("%d  ", a[i]);
+	}printf("\n");
+	SelectionSort(a,n);
+	
+	printf("mang sau khi sap xep:");
+	for(int i=0;i<n;i++){
+		printf("%d  ", a[i]);
+	}printf("\n");
+	return 0;
+	
+	
 }
 
 
