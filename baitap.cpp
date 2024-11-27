@@ -1370,7 +1370,7 @@ int main() {
     int lonNhat = timPhanTuLonNhat(mang, 0, n - 1);
     printf("Phần tử lớn nhất trong mảng là: %d\n", lonNhat);
     return 0;
-}*/
+}
 #include<stdio.h>
 
 void SelectionSort(int a[], int n){
@@ -1389,7 +1389,7 @@ void SelectionSort(int a[], int n){
 		}
 	}
 }
-/*
+
 int max, t;
 for(int i=0;i<n-1;i++){
 max = i;
@@ -1405,7 +1405,7 @@ a[i]=t;
 }
 }
 }
-*/
+
 int main(){
 	int a[]={54,56,76,6,4,5,9};
 	int n= sizeof(a)/sizeof(a[0]);
@@ -1421,6 +1421,90 @@ int main(){
 		printf("%d  ", a[i]);
 	}printf("\n");
 	return 0;
+	
+	
+}*/
+#include<stdio.h>
+#define Max 50
+
+int n;
+int a[Max][Max];
+int x[Max];
+int kq[Max];
+int chuaxet[Max];
+int best_sum = 1000;
+int sum;
+void Docfile(){
+	FILE *f=fopen("DULICH.inp", "r");
+	if(!f){
+		printf("Err! ");
+		return;
+	}else{
+		fscanf(f,"%d", &n);
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				fscanf(f, "%d", &a[i][j]);
+			}fscanf(f, "\n");
+		}
+		
+	}fclose(f);
+}
+void XuatNghiem(){
+	printf("%d\n ", n);
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			printf("%d  ", a[i][j]);
+		}printf("\n");
+	}
+}
+void khoitao(){
+	// thanh pho xuat phat la 1 
+	x[1]=1;
+	//danh dau cach thanh pho chua xet 
+	for(int i=2;i<=n;i++){
+		chuaxet[i]=1;
+	}
+}
+// cap nhat cac nghiem tot nhat
+void danhgia(){
+	if(sum<best_sum){
+		best_sum=sum;
+		for(int i=1;i<=n;i++){
+			kq[i]=x[i];
+		}
+	}
+}
+void Thu(int i){
+	if(sum<best_sum){
+		for(int j=2;j<=n;j++){
+			if(chuaxet[j]){
+				x[i]=j;
+				chuaxet[j]=0;
+				sum=sum +a[x[i-1]][j];
+				if(i==n) danhgia();
+				else Thu(i+1);
+				sum=sum-a[x[i-1]][j];
+				chuaxet[j]=1;
+				
+			}
+		}
+	}
+}
+void inketqua(){
+	printf("TP1 ->");
+	for(int i=2;i<=n;i++)
+		printf("TP%d ->", kq[i]);
+	printf("TP1\n");
+	printf("Tong chi phi la: %d",best_sum+a[kq[n]][1]);
+		
+	
+}
+int main(){
+	Docfile();
+	XuatNghiem();
+	khoitao();
+	Thu(2);	
+	inketqua();
 	
 	
 }
