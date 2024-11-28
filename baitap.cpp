@@ -1423,7 +1423,7 @@ int main(){
 	return 0;
 	
 	
-}*/
+}
 #include<stdio.h>
 #define Max 50
 
@@ -1507,8 +1507,52 @@ int main(){
 	inketqua();
 	
 	
+}*/
+#include<stdio.h>
+
+int max(int a[], int left, int right){
+	if(left == right){
+		return a[left];
+	}
+	int m = (left + right)/2;
+	int leftMax = max(a,left,m);
+	int rightMax = max(a, m+1,right);
+	return leftMax > rightMax ? leftMax : rightMax ;
 }
 
+int count(int a[], int left, int right, int x){
+	if(left==right){
+		if(a[left]==x){
+			return 1;
+		}else return 0;
+	}
+	int m= (left + right)/2 ;
+	return count(a,left,m,x) + count(a,m+1,right,x);
+}
+int find(int a[], int left, int right){
+	if(left=right){
+		return a[left];
+	}
+	int mid = (left +right)/2;
+	int lMajor = find(a,left,mid);
+	int rMajor = find(a, mid +1,right);
+	
+	int lCount = count(a, left, right, lMajor);
+	int rCount= count(a,left,rMajor,right);
+	
+	return (lCount >= rCount) ? lMajor : rMajor;
+}
+int main(){
+	int x;
+	int a[]={56,23,45,34,34,65,34};
+	int n= sizeof(a)/ sizeof(a[0]);
+	printf(" nhap so can dem: ");
+	scanf("%d", &x);
+	printf("phan tu lon nhat trong mang: %d\n", max(a,0,n-1));
+	printf("So lan xuat hien cua gia tri %d: %d\n",x, count(a,0,n-1,x));
+	printf("Phan tu xo so lan xuat hien nhieu nhat trong mang: %d", find(a,0,n-1));
+	return 0;
+}
 
 
 
