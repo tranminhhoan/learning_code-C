@@ -1507,7 +1507,7 @@ int main(){
 	inketqua();
 	
 	
-}*/
+}
 #include<stdio.h>
 
 int max(int a[], int left, int right){
@@ -1551,6 +1551,37 @@ int main(){
 	printf("phan tu lon nhat trong mang: %d\n", max(a,0,n-1));
 	printf("So lan xuat hien cua gia tri %d: %d\n",x, count(a,0,n-1,x));
 	printf("Phan tu xo so lan xuat hien nhieu nhat trong mang: %d", find(a,0,n-1));
+	return 0;
+}*/
+#include<stdio.h>
+//#define max 50
+
+void InsertionSort(int a[], int n){
+	int t,j;
+	for(int i=1;i<n;i++){
+		j = i-1;
+		t=a[i];
+		while(t>a[j] && j>=0){// tang (t>a[j]) giam (t<a[j])
+			a[j+1]=a[j];
+			j--;
+		}
+		a[j+1]=t;
+		
+	}
+}
+int main(){
+	int a[]={43,75,96,85,76,84,34};
+	int n=sizeof(a)/sizeof(a[0]);
+	
+	printf("Mang ban dau: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}printf("\n");
+	InsertionSort(a,n);
+	printf("Mang sau khi sap xep: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}
 	return 0;
 }
 
