@@ -1552,7 +1552,7 @@ int main(){
 	printf("So lan xuat hien cua gia tri %d: %d\n",x, count(a,0,n-1,x));
 	printf("Phan tu xo so lan xuat hien nhieu nhat trong mang: %d", find(a,0,n-1));
 	return 0;
-}*/
+}
 #include<stdio.h>
 //#define max 50
 
@@ -1578,6 +1578,34 @@ int main(){
 		printf("%d ", a[i]);
 	}printf("\n");
 	InsertionSort(a,n);
+	printf("Mang sau khi sap xep: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}
+	return 0;
+}*/
+#include<stdio.h>
+void BubbleSort(int a[], int n){
+	int t;
+	for(int i=0;i<n-1;i++){
+		for(int j=n-1;j>i;j--){
+			if(a[j]<a[j-1]){   // tang a[j]<a[j-1]; giam a[j]>a[j-1]
+				t=a[j];
+				a[j]=a[j-1];
+				a[j-1]=t;
+			}
+		}
+	}
+}
+int main(){
+	int a[]={67,98,56,76,96,66,36};
+	int n=sizeof(a)/sizeof(a[0]);
+	
+	printf("Mang ban dau: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}printf("\n");
+	BubbleSort(a,n);
 	printf("Mang sau khi sap xep: ");
 	for(int i=0;i<n;i++){
 		printf("%d ", a[i]);
