@@ -1583,7 +1583,7 @@ int main(){
 		printf("%d ", a[i]);
 	}
 	return 0;
-}*/
+}
 #include<stdio.h>
 void BubbleSort(int a[], int n){
 	int t;
@@ -1610,6 +1610,32 @@ int main(){
 	for(int i=0;i<n;i++){
 		printf("%d ", a[i]);
 	}
+	return 0;
+}*/
+#include<stdio.h>
+int min(int a[], int left, int right){
+	if(left == right){
+		return a[left];
+	}
+	int m = (left + right)/2;
+	int leftMax = min(a,left,m);
+	int rightMax = min(a, m+1,right);
+	return leftMax < rightMax ? leftMax : rightMax ;
+}
+int count(int a[], int left, int right, int x){
+	if(left==right)
+		return (a[left] % x == 0) ? 1 : 0;
+		else return 0;
+	int m= (left + right)/2 ;
+	return count(a,left,m,x) + count(a,m+1,right,x);
+}
+
+int main(){
+	int x=3;
+	int a[]={56,18,45,34,34,65,34};
+	int n= sizeof(a)/ sizeof(a[0]);
+	printf("phan tu nho nhat trong mang: %d\n", min(a,0,n-1));
+	 printf("So phan tu la boi cua %d: %d\n",x, count(a,0,n-1,x));
 	return 0;
 }
 
