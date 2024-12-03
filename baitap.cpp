@@ -1611,7 +1611,7 @@ int main(){
 		printf("%d ", a[i]);
 	}
 	return 0;
-}*/
+}
 #include<stdio.h>
 int min(int a[], int left, int right){
 	if(left == right){
@@ -1636,6 +1636,57 @@ int main(){
 	int n= sizeof(a)/ sizeof(a[0]);
 	printf("phan tu nho nhat trong mang: %d\n", min(a,0,n-1));
 	 printf("So phan tu la boi cua %d: %d\n",x, count(a,0,n-1,x));
+	return 0;
+}*/
+#include<stdio.h>
+
+int Phanvung(int a[], int l , int r){
+	int t;
+	int x =a[l];
+	int i = l +1;
+	int j = r;
+	do{
+		while((i<=j) & (a[i]<=x)){
+			i++;
+		}
+		while((i<=j) & (a[j]>x)){
+			j--;
+		}
+		if(i<j){
+			t=a[i];
+			a[i]=a[j];
+			a[j]=t;
+			
+		}
+	}while(i<j);
+	t=a[l];
+	a[l]=a[j];
+	a[j]=t;
+	return j;
+}
+void QuickSort(int a[], int l, int r){
+	if(l<r){
+		int	k= Phanvung(a,l,r);
+		
+		QuickSort(a,l,k-1);
+		QuickSort(a,k+1,r);
+	}
+}
+int main(){
+	int a[]={43,75,96,85,76,84,34};
+	int n=sizeof(a)/sizeof(a[0]);
+	
+	printf("Mang ban dau: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}printf("\n");
+	
+	QuickSort(a,0,n-1);
+	
+	printf("Mang sau khi sap xep: ");
+	for(int i=0;i<n;i++){
+		printf("%d ", a[i]);
+	}
 	return 0;
 }
 
