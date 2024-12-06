@@ -1724,10 +1724,24 @@ int DemAmViTriLe(int i) {
 	
 	return dem + DemAmViTriLe(i + 1);
 }
+bool KiemTra(int a[], int n, int i){
+	if(i==n){
+		return true;
+	}
+	if(a[i]%2==0){
+		return false;
+	}
+	return KiemTra(a,n,i+1);
+}
 int main(){
 	DocFile();
 	Xuat();
 	printf("So luong so nguyen am o vi tri le: %d\n", DemAmViTriLe(0));
+	  if (Kiemtra(a,n,i+1)) {
+        printf("Tất cả các phần tử trong mảng đều là số lẻ.\n");
+    } else {
+        printf("Không phải tất cả các phần tử trong mảng đều là số lẻ.\n");
+    }
 	
 	return 0;
 	
