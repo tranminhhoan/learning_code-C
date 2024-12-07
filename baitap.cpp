@@ -1688,7 +1688,7 @@ int main(){
 		printf("%d ", a[i]);
 	}
 	return 0;
-}*/
+}
 #include<stdio.h>
 #define max 50
 int n;
@@ -1745,6 +1745,41 @@ int main(){
 	
 	return 0;
 	
+}*/
+#include<stdio.h>
+#define max 50
+float a[max];
+int n;
+void DocFile(){
+	FILE *f=fopen("MangSoThuc.inp", "r");
+	if(!f){
+		printf("Err!");
+		return;
+	}else{
+		fscanf(f, "%d\n", &n);
+		for(int i=0;i<n;i++){
+			fscanf(f, "%f", &a[i]);
+		}
+	}fclose(f);
+}
+void Xuat(){
+	printf("So luong so thuc: %d\n", n);
+	for(int i=0;i<n;i++){
+		printf("%6.2f", a[i]);
+	}
+}
+double TongMangThuc(int a[], int n, int i){
+	if(i==n){
+		return a[i];
+	}
+	double tong;
+	return tong + TongMangThuc(a,n,i+1);
+}
+int main(){
+	DocFile();
+	Xuat();
+	printf("Tong cac phan tu trong day so: %.2f ",TongMangThuc());
+	return 0;
 }
 
 
