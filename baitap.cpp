@@ -1745,7 +1745,7 @@ int main(){
 	
 	return 0;
 	
-}*/
+}
 #include<stdio.h>
 #define max 50
 float a[max];
@@ -1781,6 +1781,17 @@ int main(){
 	printf("Tong cac phan tu trong day so: %.2f ",TongMangThuc());
 	return 0;
 }
+Parse 	Phân tích cú pháp
+Fault Tolerance	Khả năng chịu lỗi
+High Availability	Tính sẵn sàng cao
+High Performance	Hiệu suất cao
+Disaster Recovery	Khả năng phục hồi
+Algorithm	Thuật toán
+Execution	Thực thi
+Proxy 	Ủy quyền
+Site Generation	Tạo trang web
+Side Rendering	Kết xuất trang web
+*/
 
 
 
