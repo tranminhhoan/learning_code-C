@@ -1791,7 +1791,19 @@ Execution	Thực thi
 Proxy 	Ủy quyền
 Site Generation	Tạo trang web
 Side Rendering	Kết xuất trang web
+Interpreter	Thông dich
+Per	Mỗi
+Monitoring	Giám sát
+Atomicity	Nguyên Tử
+Consistency	Nhất quán
+Concurrency	Đồng thời
+Isolation	Cô lập
+Durability	Lâu bền, bền bỉ
+Cost	Chi phí
+Accelerate	Tăng tốc
+Parse 	Phân tích cú pháp
 */
+
 
 
 
