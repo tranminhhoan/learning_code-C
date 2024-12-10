@@ -1802,8 +1802,38 @@ Durability	Lâu bền, bền bỉ
 Cost	Chi phí
 Accelerate	Tăng tốc
 Parse 	Phân tích cú pháp
-*/
+#include <stdio.h>
+#include <math.h>  // Dùng cho hàm floor()
 
+double tinh_tien(double X, double a, double b, int N) {
+	// Số tiền sau N năm với lãi suất gộp vào gốc
+	double tien = X * pow(1 + a, N);
+// Số lần quà tặng (mỗi 10 năm)
+	int so_qua = N / 10;
+// Cộng quà tặng vào tài khoản sau mỗi 10 năm
+	tien += so_qua * b;
+	return tien;
+}
+int main() {
+	double X, a, b;
+	int N;
+	// Nhập số tiền ban đầu, lãi suất, quà tặng và số năm
+	printf("Nhap so tien ban dau X: ");
+	scanf("%lf", &X);
+	printf("Nhap lai suat hang nam a (dinh dang phan tram, 5%% la 0.05): ");
+	scanf("%lf", &a);
+	printf("Nhap gia tri qua tang b: ");
+	scanf("%lf", &b);
+	printf("Nhap so nam N: ");
+	scanf("%d", &N);
+	
+	// Tính và in số tiền sau N năm
+	double so_tien = tinh_tien(X, a, b, N);
+	printf("So tien sau %d nam la: %.2f\n", N, so_tien);
+	
+	return 0;
+}
+*/
 
 
 
