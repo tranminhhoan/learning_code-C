@@ -1833,7 +1833,62 @@ int main() {
 	
 	return 0;
 }
-*/
+#include<stdio.h>
+#define max 50
+#define SWAP(a,b,c){c=a,a=b,b=c;}
+float v[]={4,7,10,2};// gia tri cua tung mon hang 
+float w[]={5,3,6,4};
+int n=sizeof(v)/sizeof(v[0]);
+int x[max];
+float p[max];
+float T,M=9;
+void init(){
+	T=M;
+	for(int i=0;i<n;i++){
+		p[i]=v[i]/w[i];
+	}
+	float temp;
+	for(int i=0;i<n;i++)
+	for(int j=i+1;j<n;j++){
+		if(p[i]<p[j]){
+			SWAP(p[i],p[j],temp);
+			SWAP(v[i],v[j],temp);
+			SWAP(w[i],w[j],temp);
+		}
+	}
+}
+void Print(){
+	printf("Trong luong tui dung do vat: %.1f\n",M-T);
+	T=0;
+	float k=0;
+	for(int i=0;i<n;i++){
+		if(x[i]!=0){
+		printf("x:%d v:%.2f | w;%2.f\t", x[i], v[i], w[i]);
+			T=T + x[i]*v[i];
+			k=k +x[i]*w[i];
+			
+		}
+	}
+	printf("\ngia tri lon nhat la %.1f voi tong trong luong la %.1f\n",T,k);
+}
+void Greedy(){
+	int i= 0;
+	while(T>0 && i<n){
+		if(T>= w[i]){
+			x[i]++;
+		}
+		else{
+			i++;
+		}
+	}
+}
+int main(){
+	init();
+	Print();
+	Greedy();
+	return 0;
+}*/
+
 
 
 
