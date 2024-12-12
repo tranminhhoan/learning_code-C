@@ -1887,7 +1887,25 @@ int main(){
 	Print();
 	Greedy();
 	return 0;
+}
+int DemChuSo(int n){
+	n = abs(n);// tri tuyet doi
+	if(n==0){
+		return 1;
+	}
+	int dem=0;
+	while(n>0){
+		n/=10;
+		dem++;
+	}
+	return dem;
+}
+int mani(){
+	printf("nhap n: ");
+	scanf("%d", &n);
+printf("So luong chu so cua n la: %d\n", DemChuSo(n));
 }*/
+
 
 
 
