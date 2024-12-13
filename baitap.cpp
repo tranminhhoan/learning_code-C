@@ -1904,6 +1904,143 @@ int mani(){
 	printf("nhap n: ");
 	scanf("%d", &n);
 printf("So luong chu so cua n la: %d\n", DemChuSo(n));
+}
+#include <stdio.h>
+#include <stdlib.h>
+
+// Định nghĩa một nút trong danh sách liên kết
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+// Hàm tạo một nút mới
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Thêm phần tử vào đầu danh sách
+void addFirst(Node** head, int data) {
+    Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Thêm phần tử vào cuối danh sách
+void addLast(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+// Thêm phần tử vào vị trí bất kỳ (chỉ số bắt đầu từ 0)
+void addAt(Node** head, int index, int data) {
+    if (index == 0) {
+        addFirst(head, data);
+        return;
+    }
+    Node* temp = *head;
+    for (int i = 0; i < index - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        printf("Chỉ số vượt quá giới hạn\n");
+        return;
+    }
+    Node* newNode = createNode(data);
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+// Xóa phần tử ở đầu danh sách
+void deleteFirst(Node** head) {
+    if (*head == NULL) {
+        printf("Danh sách rỗng\n");
+        return;
+    }
+    Node* temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+// Xóa phần tử ở cuối danh sách
+void deleteLast(Node** head) {
+    if (*head == NULL) {
+        printf("Danh sách rỗng\n");
+        return;
+    }
+    if ((*head)->next == NULL) {
+        free(*head);
+        *head = NULL;
+        return;
+    }
+    Node* temp = *head;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+    free(temp->next);
+    temp->next = NULL;
+}
+
+// Xóa phần tử ở vị trí bất kỳ (chỉ số bắt đầu từ 0)
+void deleteAt(Node** head, int index) {
+    if (index == 0) {
+        deleteFirst(head);
+        return;
+    }
+    Node* temp = *head;
+    for (int i = 0; i < index - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL || temp->next == NULL) {
+        printf("Chỉ số vượt quá giới hạn\n");
+        return;
+    }
+    Node* toDelete = temp->next;
+    temp->next = temp->next->next;
+    free(toDelete);
+}
+
+// In danh sách liên kết
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    Node* head = NULL;
+
+    addFirst(&head, 10);
+    addLast(&head, 20);
+    addAt(&head, 1, 15);
+    printList(head); // Output: 10 -> 15 -> 20 -> NULL
+
+    deleteFirst(&head);
+    printList(head); // Output: 15 -> 20 -> NULL
+
+    deleteLast(&head);
+    printList(head); // Output: 15 -> NULL
+
+    addLast(&head, 25);
+    addLast(&head, 30);
+    deleteAt(&head, 1);
+    printList(head); // Output: 15 -> 30 -> NULL
+
+    return 0;
 }*/
 
 
