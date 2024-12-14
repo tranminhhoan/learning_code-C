@@ -2041,7 +2041,90 @@ int main() {
     printList(head); // Output: 15 -> 30 -> NULL
 
     return 0;
-}*/
+}
+#include <stdio.h>
+#include <stdlib.h>
+#include <float.h> // Để sử dụng FLT_MAX
+
+// Định nghĩa cấu trúc của một nút trong danh sách liên kết
+typedef struct Node {
+	float data;
+	struct Node* next;
+} Node;
+
+// Hàm tạo một nút mới
+Node* createNode(float data) {
+	Node* newNode = (Node*)malloc(sizeof(Node));
+	newNode->data = data;
+	newNode->next = NULL;
+	return newNode;
+}
+
+// Hàm thêm một phần tử vào cuối danh sách liên kết
+void append(Node** head, float data) {
+	Node* newNode = createNode(data);
+	if (*head == NULL) { // Nếu danh sách rỗng
+		*head = newNode;
+		return;
+	}
+	Node* current = *head;
+	while (current->next != NULL) {
+		current = current->next;
+	}
+	current->next = newNode;
+}
+
+// Hàm tìm số dương nhỏ nhất trong danh sách liên kết
+float findMinPositive(Node* head) {
+	float minPositive = FLT_MAX; // Giá trị lớn nhất có thể của kiểu float
+	Node* current = head;
+	int foundPositive = 0; // Cờ để kiểm tra xem có số dương nào không
+	
+	while (current != NULL) {
+		if (current->data > 0 && current->data < minPositive) {
+			minPositive = current->data;
+			foundPositive = 1;
+		}
+		current = current->next;
+	}
+	
+	return foundPositive ? minPositive : -1; // Trả về -1 nếu không tìm thấy số dương
+}
+
+// Hàm giải phóng bộ nhớ của danh sách liên kết
+void freeList(Node* head) {
+	Node* current = head;
+	Node* next;
+	while (current != NULL) {
+		next = current->next;
+		free(current);
+		current = next;
+	}
+}
+
+// Chương trình chính
+int main() {
+	Node* head = NULL;
+	float numbers[] = {-1.5, 3.2, 0.0, -2.8, 1.1, 4.5, -0.3};
+	int n = sizeof(numbers) / sizeof(numbers[0]);
+	
+	for (int i = 0; i < n; i++) {
+		append(&head, numbers[i]);
+	}
+	
+	float minPositive = findMinPositive(head);
+	if (minPositive != -1) {
+		printf("So duong nho nhat trong danh sach la: %.2f\n", minPositive);
+	} else {
+		printf("Danh sach khong chua so duong.\n");
+	}
+	
+	freeList(head);
+	
+	return 0;
+}
+*/
+
 
 
 
