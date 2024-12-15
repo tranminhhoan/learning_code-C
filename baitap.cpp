@@ -2123,7 +2123,95 @@ int main() {
 	
 	return 0;
 }
+#include <stdio.h>
+#include <stdlib.h>
+#include <float.h>
+
+// Cấu trúc của một nút trong danh sách liên kết
+typedef struct Node {
+    float data;
+    struct Node* next;
+} Node;
+
+// Hàm tạo một nút mới
+Node* createNode(float value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Lỗi cấp phát bộ nhớ.\n");
+        exit(1);
+    }
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Hàm thêm một nút vào cuối danh sách liên kết
+void appendNode(Node** head, float value) {
+    Node* newNode = createNode(value);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Hàm tìm số âm lớn nhất trong danh sách liên kết
+float findLargestNegative(Node* head) {
+    float largestNegative = -FLT_MAX; // Gán giá trị nhỏ nhất của kiểu float
+    int found = 0; // Biến kiểm tra có số âm hay không
+
+    while (head != NULL) {
+        if (head->data < 0 && head->data > largestNegative) {
+            largestNegative = head->data;
+            found = 1;
+        }
+        head = head->next;
+    }
+
+    return found ? largestNegative : 0; // Trả về 0 nếu không có số âm
+}
+
+// Hàm giải phóng bộ nhớ của danh sách liên kết
+void freeList(Node* head) {
+    Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+// Hàm main
+int main() {
+    Node* list = NULL;
+
+    // Thêm các phần tử vào danh sách liên kết
+    appendNode(&list, 3.2);
+    appendNode(&list, -1.5);
+    appendNode(&list, -7.8);
+    appendNode(&list, 4.6);
+    appendNode(&list, -3.1);
+
+    // Tìm số âm lớn nhất
+    float largestNegative = findLargestNegative(list);
+    if (largestNegative != 0) {
+        printf("Số âm lớn nhất trong danh sách là: %.2f\n", largestNegative);
+    } else {
+        printf("Không có số âm trong danh sách.\n");
+    }
+
+    // Giải phóng bộ nhớ
+    freeList(list);
+
+    return 0;
+}
 */
+
+
 
 
 
