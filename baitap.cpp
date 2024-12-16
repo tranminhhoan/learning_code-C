@@ -2144,6 +2144,13 @@ Node* createNode(float value) {
     newNode->next = NULL;
     return newNode;
 }
+void chendau(Node* dau, int x){
+	Node *new = (Node*)malloc(sizeof(Node));
+	new->giatri=x;
+	new->tiep;
+	dau = new;
+	return dau;
+}
 
 // Hàm thêm một nút vào cuối danh sách liên kết
 void appendNode(Node** head, float value) {
