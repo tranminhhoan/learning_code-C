@@ -2191,6 +2191,14 @@ void freeList(Node* head) {
         free(temp);
     }
 }
+void duyetDS(Node *dau) {
+Node *tam;
+tam = dau;
+while (tam != NULL) {
+// Xử lý nút tam;
+tam = tam->tiep;
+}
+}
 
 // Hàm main
 int main() {
