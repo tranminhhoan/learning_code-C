@@ -2224,7 +2224,90 @@ int main() {
 
     return 0;
 }
-*/
+#include<stdio.h>
+#define max 50
+int t,n ;
+int s;
+int a[max];
+int x[max];           
+int best_x[max];  
+int min_count = max;
+void DocFile(){
+	FILE *f= fopen("ATM.inp", "r");
+	if(!f){
+		printf("Err!");
+		return; 
+	}else{
+		fscanf(f,"%d %d", &n, &s);
+		for(int t=0;t<n;t++){
+		fscanf(f,"%d", &a[t]);
+		}
+	}
+}
+void Xuat(){
+	printf("So luong to tien: %d\n", n);
+	printf("So tien can rut: %d\n", s);
+	for(int t=0;t<n;t++){
+		printf("%d  ", a[t]);
+	}printf("\n");
+}
+void SapXep(){
+	int min, temp ;
+	for(int t=0;t<n-1;t++){
+		min =t;
+		for(int j=t+1;j< n;j++){
+			if(a[j]< a[min]){
+				min = j;
+			}
+		}
+		if(min!=t ){
+			temp= a[min ];
+			a[min]=a[t];
+			a[t]=temp;
+		}
+	}
+}
+void TimNghiem(int k, int sum, int count) {
+	if (sum > s || count >= min_count) {
+		return;
+	}
+	
+	if (k == n) {
+		if (sum == s && count < min_count) {
+			min_count = count; 
+			for (int t = 0; t < n; t++) {
+				best_x[t] = x[t];
+			}
+		}
+		return;
+	}
+	x[k] = 1;
+	TimNghiem(k + 1, sum + a[k], count + 1);
+	x[k] = 0;
+	TimNghiem(k + 1, sum, count);
+}
+void XuatKetQua() {
+	if (min_count == max) {
+		printf("Khong co cach tra tien.\n");
+	} else {
+		printf("Cach tra tien to it nhat: ");
+		for (int t = 0; t < n; t++) {
+			if (best_x[t]) {
+				printf("%d ", a[t]);
+			}
+		}
+		printf("\n");
+		printf("Tong so to tien: %d\n", min_count);
+	}
+}
+int main(){
+	DocFile();
+	Xuat();
+	SapXep();
+	TimNghiem(0,0,0);
+	XuatKetQua();
+	return 0;
+}
 
 
 
