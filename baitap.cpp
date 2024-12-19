@@ -2308,6 +2308,49 @@ int main(){
 	XuatKetQua();
 	return 0;
 }
+#include<stdio.h>
+#define N 50
+
+int x[N];
+int k,n;
+int check=0;
+
+void Print(){
+	int num1=0,i;
+	for(int i=0;i<=n;i++){
+		if(x[i]==1){
+			num1++;
+		}else if(x[i]==0 && x[i+1]==0)
+			break;
+	}
+	if(num1>=k){
+		check++;
+		for(int j=1;j<=n;j++)
+			printf("%d", x[j]);
+		printf("\n");
+	}
+}
+void Try(int i){
+	for(int j=0;j<=n;j++){
+		x[i]=j;
+		if(i==n){
+			Print();
+		}else
+			Try(i+1);
+	}
+}
+int main(){
+	printf("nhap vao do dai chuoi nhi phan: ");
+	scanf("%d", &n);
+	printf("nhap vao so ky tu 1: ");
+	scanf("%d", &k);
+	Try(1);
+	if(check==0){
+		printf("Khong co dap an!");
+	}
+}*/
+
+
 
 
 
