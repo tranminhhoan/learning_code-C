@@ -2349,7 +2349,63 @@ int main(){
 		printf("Khong co dap an!");
 	}
 }*/
-
+#include<stdio.h>
+#include<stdbool.h>
+#define max 50
+int n;
+int a[max];
+int i;
+void DocFile(){
+	FILE *f=fopen("Dulieu.inp", "r");
+	if(!f){
+		printf("Err!");
+		return;
+	}else{
+		fscanf(f,"%d", &n);
+		for(int i=0;i<n;i++){
+			fscanf(f,"%d  ", &a[i]);
+			
+		}
+		
+	}fclose(f);
+}
+void Xuat(){
+	printf("So luong day so: %d\n ", n);
+	for(int i=0;i<n;i++){
+		printf("%d  ", a[i]);
+	}printf("\n");
+	
+}
+int DemAmViTriLe(int i) {
+	if (i >= n) return 0;
+	int dem = 0;
+	if (i % 2 != 0 && a[i] < 0) { 
+		dem ++;
+	}
+	
+	return dem + DemAmViTriLe(i + 1);
+}
+bool KiemTra(int a[], int n, int i){
+	if(i==n){
+		return true;
+	}
+	if(a[i]%2==0){
+		return false;
+	}
+	return KiemTra(a,n,i+1);
+}
+int main(){
+	DocFile();
+	Xuat();
+	printf("So luong so nguyen am o vi tri le: %d\n", DemAmViTriLe(0));
+	if (KiemTra(a,n,i+1)) {
+		printf("Tat ca phan tu trong mang la so le\n");
+	} else {
+		printf("khong phai. ");
+	}
+	return 0;
+	
+}
 
 
 
