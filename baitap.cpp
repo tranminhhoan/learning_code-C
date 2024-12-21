@@ -2348,7 +2348,7 @@ int main(){
 	if(check==0){
 		printf("Khong co dap an!");
 	}
-}*/
+}
 #include<stdio.h>
 #include<stdbool.h>
 #define max 50
@@ -2405,7 +2405,52 @@ int main(){
 	}
 	return 0;
 	
+}*/
+#include <stdio.h>
+#define N 50
+
+int x[N];           // Mảng đánh dấu phần tử có được chọn hay không
+int a[] = {2, 5, -7, 2, -6, 8}; // Mảng các phần tử
+int n, s;
+int check = 0;       // Biến kiểm tra có tìm được đáp án không
+
+void Print() {
+	int sum = 0;    // Tổng các phần tử trong tập con
+	for (int i = 0; i < n; i++) {
+		if (x[i] == 1) {
+			sum += a[i];
+		}
+	}
+	if (sum >= s) {
+		check++;
+		for (int i = 0; i < n; i++) {
+			if (x[i] == 1) {
+				printf("%d ", a[i]); // In các phần tử trong tập con
+			}
+		}printf("\n");
+	}
 }
+void Try(int i) {
+	for (int j = 0; j <= 1; j++) { // Chọn hoặc không chọn phần tử a[i]
+		x[i] = j;
+		if (i == n - 1) {          // Nếu đã xét hết các phần tử
+			Print();               // In ra tập con nếu thỏa mãn
+		} else {
+			Try(i + 1);            // Xét phần tử tiếp theo
+		}
+	}
+}
+int main() {
+	printf("Nhap vao tong s: ");
+	scanf("%d", &s);
+	n = sizeof(a) / sizeof(a[0]); // Số phần tử trong mảng a
+	Try(0);                       // Bắt đầu từ phần tử đầu tiên
+	if (check == 0) {
+		printf("Khong co dap an!\n");
+	}
+	return 0;
+}
+
 
 
 
