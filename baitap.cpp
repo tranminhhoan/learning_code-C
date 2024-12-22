@@ -2405,7 +2405,7 @@ int main(){
 	}
 	return 0;
 	
-}*/
+}
 #include <stdio.h>
 #define N 50
 
@@ -2449,7 +2449,172 @@ int main() {
 		printf("Khong co dap an!\n");
 	}
 	return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+
+// Cấu trúc cây nhị phân tìm kiếm (BST) cho số nguyên, số thực, và ký tự
+typedef union {
+	int intVal;
+	float floatVal;
+	char charVal;
+} Data;
+
+typedef enum {
+	INT_TYPE,
+	FLOAT_TYPE,
+	CHAR_TYPE
+} DataType;
+
+typedef struct Node {
+	Data data;
+	DataType type;
+	struct Node* left;
+	struct Node* right;
+	int height;
+} Node;
+
+// Hàm tạo nút mới
+Node* createNode(Data data, DataType type) {
+	Node* newNode = (Node*)malloc(sizeof(Node));
+	newNode->data = data;
+	newNode->type = type;
+	newNode->left = newNode->right = NULL;
+	newNode->height = 1;  // Chiều cao của nút mới luôn là 1
+	return newNode;
 }
+
+// Hàm tính chiều cao của nút
+int height(Node* node) {
+	return (node == NULL) ? 0 : node->height;
+}
+
+// Hàm tính độ chênh lệch chiều cao của cây con trái và cây con phải
+int getBalance(Node* node) {
+	if (node == NULL) return 0;
+	return height(node->left) - height(node->right);
+}
+
+// Hàm quay trái
+Node* rotateLeft(Node* x) {
+	Node* y = x->right;
+	Node* T2 = y->left;
+	
+	y->left = x;
+	x->right = T2;
+	
+	x->height = fmax(height(x->left), height(x->right)) + 1;
+	y->height = fmax(height(y->left), height(y->right)) + 1;
+	
+	return y;
+}
+
+// Hàm quay phải
+Node* rotateRight(Node* y) {
+	Node* x = y->left;
+	Node* T2 = x->right;
+	
+	x->right = y;
+	y->left = T2;
+	
+	y->height = fmax(height(y->left), height(y->right)) + 1;
+	x->height = fmax(height(x->left), height(x->right)) + 1;
+	
+	return x;
+}
+
+// Hàm chèn phần tử vào cây và cân bằng cây nếu cần thiết
+Node* insert(Node* node, Data data, DataType type) {
+	// 1. Thực hiện chèn bình thường (BST)
+	if (node == NULL) return createNode(data, type);
+	
+	if ((type == INT_TYPE && data.intVal < node->data.intVal) ||
+		(type == FLOAT_TYPE && data.floatVal < node->data.floatVal) ||
+		(type == CHAR_TYPE && data.charVal < node->data.charVal)) {
+		node->left = insert(node->left, data, type);
+	} else {
+		node->right = insert(node->right, data, type);
+	}
+	
+	// 2. Cập nhật chiều cao của nút hiện tại
+	node->height = fmax(height(node->left), height(node->right)) + 1;
+	
+	// 3. Kiểm tra cây có mất cân bằng không và thực hiện quay nếu cần thiết
+	int balance = getBalance(node);
+	
+	// Quay trái
+	if (balance > 1 && ((type == INT_TYPE && data.intVal < node->left->data.intVal) ||
+		(type == FLOAT_TYPE && data.floatVal < node->left->data.floatVal) ||
+		(type == CHAR_TYPE && data.charVal < node->left->data.charVal))) {
+		return rotateRight(node);
+	}
+	
+	// Quay phải
+	if (balance < -1 && ((type == INT_TYPE && data.intVal > node->right->data.intVal) ||
+		(type == FLOAT_TYPE && data.floatVal > node->right->data.floatVal) ||
+		(type == CHAR_TYPE && data.charVal > node->right->data.charVal))) {
+		return rotateLeft(node);
+	}
+	
+	// Quay trái phải
+	if (balance > 1 && ((type == INT_TYPE && data.intVal > node->left->data.intVal) ||
+		(type == FLOAT_TYPE && data.floatVal > node->left->data.floatVal) ||
+		(type == CHAR_TYPE && data.charVal > node->left->data.charVal))) {
+		node->left = rotateLeft(node->left);
+		return rotateRight(node);
+	}
+	
+	// Quay phải trái
+	if (balance < -1 && ((type == INT_TYPE && data.intVal < node->right->data.intVal) ||
+		(type == FLOAT_TYPE && data.floatVal < node->right->data.floatVal) ||
+		(type == CHAR_TYPE && data.charVal < node->right->data.charVal))) {
+		node->right = rotateRight(node->right);
+		return rotateLeft(node);
+	}
+	
+	// Nếu cây đã cân bằng
+	return node;
+}
+
+// Hàm duyệt cây theo thứ tự in-order và in giá trị của các nút
+void inorder(Node* root) {
+	if (root != NULL) {
+		inorder(root->left);
+		
+		// In giá trị của nút dựa vào loại dữ liệu
+		if (root->type == INT_TYPE) {
+			printf("%d ", root->data.intVal);
+		} else if (root->type == FLOAT_TYPE) {
+			printf("%.2f ", root->data.floatVal);
+		} else if (root->type == CHAR_TYPE) {
+			printf("%c ", root->data.charVal);
+		}
+		
+		inorder(root->right);
+	}
+}
+
+int main() {
+	// Tạo cây nhị phân tìm kiếm cân bằng cho số nguyên, số thực, và ký tự
+	Node* root = NULL;
+	
+	// Chèn các giá trị vào cây
+	Data data1; data1.intVal = 10; root = insert(root, data1, INT_TYPE);
+	Data data2; data2.floatVal = 3.14; root = insert(root, data2, FLOAT_TYPE);
+	Data data3; data3.charVal = 'A'; root = insert(root, data3, CHAR_TYPE);
+	Data data4; data4.intVal = 20; root = insert(root, data4, INT_TYPE);
+	Data data5; data5.floatVal = 2.71; root = insert(root, data5, FLOAT_TYPE);
+	Data data6; data6.charVal = 'Z'; root = insert(root, data6, CHAR_TYPE);
+	
+	printf("Duyet cay theo thu tu in-order:\n");
+	inorder(root);
+	printf("\n");
+	
+	return 0;
+}
+
 
 
 
