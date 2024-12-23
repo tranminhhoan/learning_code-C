@@ -2614,6 +2614,87 @@ int main() {
 	
 	return 0;
 }
+#include <stdio.h>
+#include <stdlib.h>
+
+// Định nghĩa cấu trúc cây nhị phân tìm kiếm cho kiểu dữ liệu int
+typedef struct NodeInt {
+	int data;               // Dữ liệu kiểu int (số nguyên)
+	struct NodeInt* left;   // Con trỏ đến con bên trái
+	struct NodeInt* right;  // Con trỏ đến con bên phải
+} NodeInt;
+
+// Hàm tạo cây mới cho kiểu dữ liệu int
+NodeInt* createTreeInt(int data) {
+	NodeInt* newNode = (NodeInt*)malloc(sizeof(NodeInt));
+	newNode->data = data;
+	newNode->left = newNode->right = NULL;
+	return newNode;
+}
+
+// Hàm thêm phần tử vào cây nhị phân tìm kiếm (cho kiểu int)
+NodeInt* insertInt(NodeInt* root, int data) {
+	if (root == NULL) {
+		return createTreeInt(data);
+	}
+	if (data < root->data) {
+		root->left = insertInt(root->left, data);
+	} else if (data > root->data) {
+		root->right = insertInt(root->right, data);
+	}
+	return root;
+}
+
+// Hàm đếm số lượng các nút có giá trị chẵn trong cây nhị phân
+int countEvenNodes(NodeInt* root) {
+	if (root == NULL) {
+		return 0;  // Nếu cây rỗng, không có nút nào
+	}
+	
+	// Kiểm tra nếu nút hiện tại có giá trị chẵn
+	int count = 0;
+	if (root->data % 2 == 0) {
+		count = 1;
+	}
+	
+	// Đếm các nút chẵn trong cây con trái và cây con phải
+	count += countEvenNodes(root->left);
+	count += countEvenNodes(root->right);
+	
+	return count;
+}
+
+// Hàm duyệt cây theo thứ tự in-order (giữa)
+void inorder(NodeInt* root) {
+	if (root != NULL) {
+		inorder(root->left);
+		printf("%d ", root->data);
+		inorder(root->right);
+	}
+}
+
+// Hàm main
+int main() {
+	NodeInt* root = NULL;
+	root = insertInt(root, 50);
+	root = insertInt(root, 30);
+	root = insertInt(root, 20);
+	root = insertInt(root, 40);
+	root = insertInt(root, 70);
+	root = insertInt(root, 60);
+	root = insertInt(root, 80);
+	
+	printf("Cay nhap truoc khi dem so nut chan:\n");
+	inorder(root); // In danh sách cây trước khi đếm số nút chẵn
+	printf("\n");
+	
+	// Đếm số lượng các nút có giá trị chẵn
+	int evenCount = countEvenNodes(root);
+	
+	printf("So luong cac nut co gia tri chan trong cay la: %d\n", evenCount);
+	
+	return 0;
+}
 
 
 
