@@ -2449,7 +2449,7 @@ int main() {
 		printf("Khong co dap an!\n");
 	}
 	return 0;
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -2694,8 +2694,15 @@ int main() {
 	printf("So luong cac nut co gia tri chan trong cay la: %d\n", evenCount);
 	
 	return 0;
+}*/
+int BSLN( int a , int b){
+	if(a==0){
+		return 0;
+	}
+	int tong = a*b;
+	return tong /UCLN(a,b);
+	
 }
-
 
 
 
