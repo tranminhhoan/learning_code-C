@@ -2865,7 +2865,7 @@ int main() {
 	
 	return 0;
 }
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2941,7 +2941,84 @@ int main() {
 	printf("Tong so duong trong danh sach la: %.2f\n", tong_duong);
 	
 	return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// Định nghĩa cấu trúc Node (nút) để lưu trữ số thực
+typedef struct Node {
+	float du_lieu;           // Dữ liệu của nút (số thực)
+	struct Node* ke_tiep;    // Con trỏ tới phần tử tiếp theo
+} Node;
+
+// Hàm tạo danh sách liên kết mới
+Node* tao_danh_sach() {
+	return NULL;  // Khởi tạo danh sách liên kết rỗng
 }
+
+// Thêm phần tử vào cuối danh sách
+void them_cuoi(Node** dau, float du_lieu) {
+	Node* node_moi = (Node*)malloc(sizeof(Node));
+	node_moi->du_lieu = du_lieu;
+	node_moi->ke_tiep = NULL;  // Nút cuối có con trỏ NULL
+	
+	if (*dau == NULL) {  // Nếu danh sách rỗng
+		*dau = node_moi;
+		return;
+	}
+	
+	Node* tam = *dau;
+	while (tam->ke_tiep != NULL) {  // Duyệt đến nút cuối cùng
+		tam = tam->ke_tiep;
+	}
+	tam->ke_tiep = node_moi;  // Đặt nút mới làm nút cuối
+}
+
+// Tính tổng các số âm trong danh sách
+float tinh_tong_so_am(Node* dau) {
+	Node* tam = dau;
+	float tong = 0.0;
+	
+	while (tam != NULL) {
+		if (tam->du_lieu < 0) {
+			tong += tam->du_lieu;  // Cộng dồn các số âm
+		}
+		tam = tam->ke_tiep;
+	}
+	
+	return tong;
+}
+
+// Hàm in danh sách liên kết
+void in_danh_sach(Node* dau) {
+	Node* tam = dau;
+	while (tam != NULL) {
+		printf("%.2f -> ", tam->du_lieu);
+		tam = tam->ke_tiep;
+	}
+	printf("NULL\n");
+}
+
+int main() {
+	Node* dau = tao_danh_sach();
+	
+	// Thêm một số thực vào danh sách
+	them_cuoi(&dau, -1.5);
+	them_cuoi(&dau, 2.3);
+	them_cuoi(&dau, -4.7);
+	them_cuoi(&dau, 0.5);
+	them_cuoi(&dau, -3.2);
+	
+	printf("Danh sach sau khi them cac phan tu:\n");
+	in_danh_sach(dau);
+	
+	float tong_am = tinh_tong_so_am(dau);
+	
+	printf("Tong cac so am trong danh sach la: %.2f\n", tong_am);
+	
+	return 0;
+}
+
 
 
 
