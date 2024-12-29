@@ -2941,7 +2941,7 @@ int main() {
 	printf("Tong so duong trong danh sach la: %.2f\n", tong_duong);
 	
 	return 0;
-}*/
+}
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -3017,7 +3017,96 @@ int main() {
 	printf("Tong cac so am trong danh sach la: %.2f\n", tong_am);
 	
 	return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// Dinh nghia cau truc Node de luu tru so nguyen
+typedef struct Node {
+	int du_lieu;            // Du lieu cua Node (so nguyen)
+	struct Node* ke_tiep;   // Con tro toi phan tu tiep theo
+} Node;
+
+// Ham tao mot Node moi
+Node* tao_node(int du_lieu) {
+	Node* node_moi = (Node*)malloc(sizeof(Node));
+	if (!node_moi) {
+		printf("Loi cap phat bo nho.\n");
+		exit(1);
+	}
+	node_moi->du_lieu = du_lieu;
+	node_moi->ke_tiep = NULL;
+	return node_moi;
 }
+
+// Ham them mot phan tu vao cuoi danh sach
+void them_cuoi(Node** dau, int du_lieu) {
+	Node* node_moi = tao_node(du_lieu);
+	if (*dau == NULL) {
+		*dau = node_moi;
+		return;
+	}
+	Node* tam = *dau;
+	while (tam->ke_tiep != NULL) {
+		tam = tam->ke_tiep;
+	}
+	tam->ke_tiep = node_moi;
+}
+
+// Ham tim so le dau tien trong danh sach
+int tim_so_le_dau_tien(Node* dau) {
+	Node* tam = dau;
+	while (tam != NULL) {
+		if (tam->du_lieu % 2 != 0) {
+			return tam->du_lieu;  // Tra ve so le dau tien
+		}
+		tam = tam->ke_tiep;
+	}
+	return -1;  // Khong tim thay so le nao
+}
+
+// Ham in danh sach lien ket
+void in_danh_sach(Node* dau) {
+	Node* tam = dau;
+	while (tam != NULL) {
+		printf("%d -> ", tam->du_lieu);
+		tam = tam->ke_tiep;
+	}
+	printf("NULL\n");
+}
+
+// Ham chinh
+int main() {
+	Node* dau = NULL;
+	
+	// Them cac phan tu vao danh sach lien ket
+	them_cuoi(&dau, 2);
+	them_cuoi(&dau, 4);
+	them_cuoi(&dau, 6);
+	them_cuoi(&dau, 7);
+	them_cuoi(&dau, 10);
+	
+	printf("Danh sach lien ket:\n");
+	in_danh_sach(dau);
+	
+	// Tim so le dau tien
+	int so_le_dau = tim_so_le_dau_tien(dau);
+	if (so_le_dau != -1) {
+		printf("So le dau tien trong danh sach la: %d\n", so_le_dau);
+	} else {
+		printf("Khong co so le trong danh sach.\n");
+	}
+	
+	// Giai phong bo nho
+	while (dau != NULL) {
+		Node* tam = dau;
+		dau = dau->ke_tiep;
+		free(tam);
+	}
+	
+	return 0;
+}
+
 
 
 
