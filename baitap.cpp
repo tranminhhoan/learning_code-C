@@ -3198,7 +3198,7 @@ int main() {
 	
 	return 0;
 }
-*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -3286,6 +3286,102 @@ int main() {
 	
 	return 0;
 }
+*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// Dinh nghia cau truc Node de luu tru ky tu
+typedef struct Node {
+	char du_lieu;           // Du lieu cua Node (ky tu)
+	struct Node* ke_tiep;   // Con tro toi phan tu tiep theo
+} Node;
+
+// Ham tao mot Node moi
+Node* tao_node(char du_lieu) {
+	Node* node_moi = (Node*)malloc(sizeof(Node));
+	if (!node_moi) {
+		printf("Loi cap phat bo nho.\n");
+		exit(1);
+	}
+	node_moi->du_lieu = du_lieu;
+	node_moi->ke_tiep = NULL;
+	return node_moi;
+}
+
+// Ham them mot phan tu vao cuoi danh sach
+void them_cuoi(Node** dau, char du_lieu) {
+	Node* node_moi = tao_node(du_lieu);
+	if (*dau == NULL) {
+		*dau = node_moi;
+		return;
+	}
+	Node* tam = *dau;
+	while (tam->ke_tiep != NULL) {
+		tam = tam->ke_tiep;
+	}
+	tam->ke_tiep = node_moi;
+}
+
+// Ham tim thu tu cua phan tu cuoi cung mang ky tu 'A'
+int tim_thu_tu_A_cuoi(Node* dau) {
+	Node* tam = dau;
+	int thu_tu = 0;  // Thu tu cua phan tu hien tai
+	int thu_tu_A_cuoi = -1;  // Giat tri mac dinh la -1 (neu khong tim thay ky tu 'A')
+	
+	while (tam != NULL) {
+		thu_tu++;  // Tang thu tu khi di qua moi phan tu
+		if (tam->du_lieu == 'A') {
+			thu_tu_A_cuoi = thu_tu;  // Cap nhat thu tu cua ky tu 'A' cuoi cung
+		}
+		tam = tam->ke_tiep;
+	}
+	
+	return thu_tu_A_cuoi;  // Tra ve thu tu cua ky tu 'A' cuoi cung, neu khong co tra ve -1
+}
+
+// Ham in danh sach lien ket
+void in_danh_sach(Node* dau) {
+	Node* tam = dau;
+	while (tam != NULL) {
+		printf("%c -> ", tam->du_lieu);
+		tam = tam->ke_tiep;
+	}
+	printf("NULL\n");
+}
+
+// Ham chinh
+int main() {
+	Node* dau = NULL;
+	
+	// Them cac ky tu vao danh sach lien ket
+	them_cuoi(&dau, 'B');
+	them_cuoi(&dau, 'A');
+	them_cuoi(&dau, 'C');
+	them_cuoi(&dau, 'A');
+	them_cuoi(&dau, 'D');
+	them_cuoi(&dau, 'A');
+	
+	printf("Danh sach lien ket:\n");
+	in_danh_sach(dau);
+	
+	// Tim thu tu cua phan tu cuoi cung mang ky tu 'A'
+	int thu_tu_A_cuoi = tim_thu_tu_A_cuoi(dau);
+	if (thu_tu_A_cuoi != -1) {
+		printf("Thu tu cua phan tu cuoi cung mang ky tu 'A' la: %d\n", thu_tu_A_cuoi);
+	} else {
+		printf("Khong co ky tu 'A' trong danh sach.\n");
+	}
+	
+	// Giai phong bo nho
+	while (dau != NULL) {
+		Node* tam = dau;
+		dau = dau->ke_tiep;
+		free(tam);
+	}
+	
+	return 0;
+}
+
 
 
 
