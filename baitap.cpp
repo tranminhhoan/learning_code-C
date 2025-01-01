@@ -3286,7 +3286,6 @@ int main() {
 	
 	return 0;
 }
-*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -3380,7 +3379,105 @@ int main() {
 	}
 	
 	return 0;
+}*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Dinh nghia cau truc Node de luu tru chuoi ky tu
+typedef struct Node {
+	char du_lieu[21];        // Du lieu cua Node (chuoi ky tu, toi da 20 ky tu + 1 cho ky tu ket thuc '\0')
+	struct Node* ke_tiep;    // Con tro toi phan tu tiep theo
+} Node;
+
+// Ham tao mot Node moi
+Node* tao_node(char* du_lieu) {
+	Node* node_moi = (Node*)malloc(sizeof(Node));
+	if (!node_moi) {
+		printf("Loi cap phat bo nho.\n");
+		exit(1);
+	}
+	strncpy(node_moi->du_lieu, du_lieu, 20);  // Sao chep chuoi vao Node
+	node_moi->du_lieu[20] = '\0';  // Bao dam chuoi ket thuc thich hop
+	node_moi->ke_tiep = NULL;
+	return node_moi;
 }
+
+// Ham them mot phan tu vao cuoi danh sach
+void them_cuoi(Node** dau, char* du_lieu) {
+	Node* node_moi = tao_node(du_lieu);
+	if (*dau == NULL) {
+		*dau = node_moi;
+		return;
+	}
+	Node* tam = *dau;
+	while (tam->ke_tiep != NULL) {
+		tam = tam->ke_tiep;
+	}
+	tam->ke_tiep = node_moi;
+}
+
+// Ham tim thu tu cua phan tu co chuoi ky tu ngan nhat
+int tim_thu_tu_chuoi_ngan_nhat(Node* dau) {
+	Node* tam = dau;
+	int thu_tu = 0;          // Thu tu cua phan tu hien tai
+	int thu_tu_ngan_nhat = -1;  // Giat tri mac dinh la -1 (neu khong tim thay chuoi)
+	size_t do_dai_ngan_nhat = 21;  // Do dai chuoi ngan nhat, khoi tao la 21 (lon hon 20)
+	
+	while (tam != NULL) {
+		thu_tu++;  // Tang thu tu khi di qua moi phan tu
+		if (strlen(tam->du_lieu) < do_dai_ngan_nhat) {
+			do_dai_ngan_nhat = strlen(tam->du_lieu);  // Cap nhat do dai chuoi ngan nhat
+			thu_tu_ngan_nhat = thu_tu;  // Cap nhat thu tu cua phan tu co chuoi ngan nhat
+		}
+		tam = tam->ke_tiep;
+	}
+	
+	return thu_tu_ngan_nhat;  // Tra ve thu tu cua phan tu co chuoi ky tu ngan nhat
+}
+
+// Ham in danh sach lien ket
+void in_danh_sach(Node* dau) {
+	Node* tam = dau;
+	while (tam != NULL) {
+		printf("%s -> ", tam->du_lieu);
+		tam = tam->ke_tiep;
+	}
+	printf("NULL\n");
+}
+
+// Ham chinh
+int main() {
+	Node* dau = NULL;
+	
+	// Them cac chuoi ky tu vao danh sach lien ket
+	them_cuoi(&dau, "Hello");
+	them_cuoi(&dau, "Hi");
+	them_cuoi(&dau, "Goodbye");
+	them_cuoi(&dau, "A");
+	them_cuoi(&dau, "World");
+	
+	printf("Danh sach lien ket:\n");
+	in_danh_sach(dau);
+	
+	// Tim thu tu cua phan tu co chuoi ky tu ngan nhat
+	int thu_tu_chuoi_ngan_nhat = tim_thu_tu_chuoi_ngan_nhat(dau);
+	if (thu_tu_chuoi_ngan_nhat != -1) {
+		printf("Thu tu cua phan tu co chuoi ky tu ngan nhat la: %d\n", thu_tu_chuoi_ngan_nhat);
+	} else {
+		printf("Khong co chuoi ky tu trong danh sach.\n");
+	}
+	
+	// Giai phong bo nho
+	while (dau != NULL) {
+		Node* tam = dau;
+		dau = dau->ke_tiep;
+		free(tam);
+	}
+	
+	return 0;
+}
+
 
 
 
